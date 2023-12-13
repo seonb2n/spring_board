@@ -1,4 +1,4 @@
-package com.example.springboard.dto.reqeust.user;
+package com.example.springboard.dto.request.user;
 
 public class ManageVerifyRealIdentityRequest {
 }
