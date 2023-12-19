@@ -1,11 +1,24 @@
 package com.example.springboard.common.exception.article;
 
-import com.example.springboard.common.exception.BaseLoggingException;
+import com.example.springboard.common.exception.GlobalException;
 
-public class ArticleDeleteErrorException extends BaseLoggingException {
+/**
+ * 게시물 삭제에 실패했습니다.
+ */
+public class ArticleDeleteErrorException extends GlobalException {
 
     public ArticleDeleteErrorException() {
-        super("게시물 삭제에 실패했습니다.", LOG_LEVEL.ERROR);
     }
 
+    public ArticleDeleteErrorException(String message) {
+        super(message);
+    }
+
+    public ArticleDeleteErrorException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public ArticleDeleteErrorException(Throwable cause) {
+        super(cause);
+    }
 }

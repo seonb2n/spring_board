@@ -1,9 +1,23 @@
 package com.example.springboard.common.exception.user;
 
-import com.example.springboard.common.exception.BaseLoggingException;
+import com.example.springboard.common.exception.GlobalException;
 
-public class ResetPasswordErrorException extends BaseLoggingException {
+/**
+ * 비밀번호 초기화에 실패했습니다.
+ */
+public class ResetPasswordErrorException extends GlobalException {
     public ResetPasswordErrorException() {
-        super("비밀번호 초기화에 실패했습니다.", LOG_LEVEL.ERROR);
+    }
+
+    public ResetPasswordErrorException(String message) {
+        super(message);
+    }
+
+    public ResetPasswordErrorException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public ResetPasswordErrorException(Throwable cause) {
+        super(cause);
     }
 }

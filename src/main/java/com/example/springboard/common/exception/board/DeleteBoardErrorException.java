@@ -1,11 +1,24 @@
 package com.example.springboard.common.exception.board;
 
-import com.example.springboard.common.exception.BaseLoggingException;
+import com.example.springboard.common.exception.GlobalException;
 
-public class DeleteBoardErrorException extends BaseLoggingException {
+/**
+ * 게시판 삭제에 실패했습니다.
+ */
+public class DeleteBoardErrorException extends GlobalException {
 
     public DeleteBoardErrorException() {
-        super("게시판 삭제에 실패했습니다.", LOG_LEVEL.ERROR);
     }
 
+    public DeleteBoardErrorException(String message) {
+        super(message);
+    }
+
+    public DeleteBoardErrorException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public DeleteBoardErrorException(Throwable cause) {
+        super(cause);
+    }
 }

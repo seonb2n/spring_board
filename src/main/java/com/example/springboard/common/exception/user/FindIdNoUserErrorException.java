@@ -1,9 +1,23 @@
 package com.example.springboard.common.exception.user;
 
-import com.example.springboard.common.exception.BaseLoggingException;
+import com.example.springboard.common.exception.GlobalException;
 
-public class FindIdNoUserErrorException extends BaseLoggingException {
+/**
+ * 아이디 찾기에 실패했습니다. 존재하지 않는 사용자입니다.
+ */
+public class FindIdNoUserErrorException extends GlobalException {
     public FindIdNoUserErrorException() {
-        super("아이디 찾기에 실패했습니다. 존재하지 않는 사용자입니다.", LOG_LEVEL.INFO);
+    }
+
+    public FindIdNoUserErrorException(String message) {
+        super(message);
+    }
+
+    public FindIdNoUserErrorException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public FindIdNoUserErrorException(Throwable cause) {
+        super(cause);
     }
 }

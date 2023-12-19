@@ -1,11 +1,24 @@
 package com.example.springboard.common.exception.board;
 
-import com.example.springboard.common.exception.BaseLoggingException;
+import com.example.springboard.common.exception.GlobalException;
 
-public class GetArticleListErrorException extends BaseLoggingException {
+/**
+ * 게시물 목록을 가져오지 못했습니다.
+ */
+public class GetArticleListErrorException extends GlobalException {
 
     public GetArticleListErrorException() {
-        super("게시물 목록을 가져오지 못했습니다.", LOG_LEVEL.ERROR);
     }
 
+    public GetArticleListErrorException(String message) {
+        super(message);
+    }
+
+    public GetArticleListErrorException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public GetArticleListErrorException(Throwable cause) {
+        super(cause);
+    }
 }

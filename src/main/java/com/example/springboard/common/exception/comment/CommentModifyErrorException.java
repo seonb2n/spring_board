@@ -1,11 +1,24 @@
 package com.example.springboard.common.exception.comment;
 
-import com.example.springboard.common.exception.BaseLoggingException;
+import com.example.springboard.common.exception.GlobalException;
 
-public class CommentModifyErrorException extends BaseLoggingException {
+/**
+ * 댓글 수정에 실패했습니다.
+ */
+public class CommentModifyErrorException extends GlobalException {
 
     public CommentModifyErrorException() {
-        super("댓글 수정에 실패했습니다.", LOG_LEVEL.ERROR);
     }
 
+    public CommentModifyErrorException(String message) {
+        super(message);
+    }
+
+    public CommentModifyErrorException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public CommentModifyErrorException(Throwable cause) {
+        super(cause);
+    }
 }

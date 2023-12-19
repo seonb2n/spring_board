@@ -1,11 +1,24 @@
 package com.example.springboard.common.exception.user;
 
-import com.example.springboard.common.exception.BaseLoggingException;
+import com.example.springboard.common.exception.GlobalException;
 
-public class ExistIdErrorException extends BaseLoggingException {
+/**
+ * 이미 존재하는 ID 입니다.
+ */
+public class ExistIdErrorException extends GlobalException {
 
     public ExistIdErrorException() {
-        super("이미 존재하는 ID 입니다.", LOG_LEVEL.INFO);
     }
 
+    public ExistIdErrorException(String message) {
+        super(message);
+    }
+
+    public ExistIdErrorException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public ExistIdErrorException(Throwable cause) {
+        super(cause);
+    }
 }

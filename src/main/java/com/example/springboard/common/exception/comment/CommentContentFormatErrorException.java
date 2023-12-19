@@ -1,11 +1,24 @@
 package com.example.springboard.common.exception.comment;
 
-import com.example.springboard.common.exception.BaseLoggingException;
+import com.example.springboard.common.exception.GlobalException;
 
-public class CommentContentFormatErrorException extends BaseLoggingException {
+/**
+ * 댓글 수가 옳바르지 않습니다. 100자 이내
+ */
+public class CommentContentFormatErrorException extends GlobalException {
 
     public CommentContentFormatErrorException() {
-        super("댓글 수가 옳바르지 않습니다. 100자 이내", LOG_LEVEL.INFO);
     }
 
+    public CommentContentFormatErrorException(String message) {
+        super(message);
+    }
+
+    public CommentContentFormatErrorException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public CommentContentFormatErrorException(Throwable cause) {
+        super(cause);
+    }
 }

@@ -1,11 +1,24 @@
 package com.example.springboard.common.exception.comment;
 
-import com.example.springboard.common.exception.BaseLoggingException;
+import com.example.springboard.common.exception.GlobalException;
 
-public class CommentCreateErrorException extends BaseLoggingException {
+/**
+ * 댓글 생성에 실패했습니다.
+ */
+public class CommentCreateErrorException extends GlobalException {
 
     public CommentCreateErrorException() {
-        super("댓글 생성에 실패했습니다.", LOG_LEVEL.ERROR);
     }
 
+    public CommentCreateErrorException(String message) {
+        super(message);
+    }
+
+    public CommentCreateErrorException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public CommentCreateErrorException(Throwable cause) {
+        super(cause);
+    }
 }

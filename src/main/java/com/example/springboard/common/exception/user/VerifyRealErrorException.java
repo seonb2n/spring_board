@@ -1,10 +1,24 @@
 package com.example.springboard.common.exception.user;
 
-import com.example.springboard.common.exception.BaseLoggingException;
+import com.example.springboard.common.exception.GlobalException;
 
-public class VerifyRealErrorException extends BaseLoggingException {
+/**
+ * 실명 인증에 실패했습니다.
+ */
+public class VerifyRealErrorException extends GlobalException {
 
     public VerifyRealErrorException() {
-        super("실명 인증에 실패했습니다.", LOG_LEVEL.ERROR);
+    }
+
+    public VerifyRealErrorException(String message) {
+        super(message);
+    }
+
+    public VerifyRealErrorException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public VerifyRealErrorException(Throwable cause) {
+        super(cause);
     }
 }

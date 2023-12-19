@@ -1,11 +1,24 @@
 package com.example.springboard.common.exception.comment;
 
-import com.example.springboard.common.exception.BaseLoggingException;
+import com.example.springboard.common.exception.GlobalException;
 
-public class CommentDeleteErrorException extends BaseLoggingException {
+/**
+ * 댓글 삭제에 실패했습니다.
+ */
+public class CommentDeleteErrorException extends GlobalException {
 
     public CommentDeleteErrorException() {
-        super("댓글 삭제에 실패했습니다.", LOG_LEVEL.ERROR);
     }
 
+    public CommentDeleteErrorException(String message) {
+        super(message);
+    }
+
+    public CommentDeleteErrorException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public CommentDeleteErrorException(Throwable cause) {
+        super(cause);
+    }
 }
