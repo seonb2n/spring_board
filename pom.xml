@@ -49,6 +49,13 @@
       <version>3.5.7</version>
     </dependency>
 
+    <!-- AspectJ weaver -->
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>1.9.21</version>
+    </dependency>
+
     <!-- H2 Database (데모용으로 사용) -->
     <dependency>
       <groupId>com.h2database</groupId>
