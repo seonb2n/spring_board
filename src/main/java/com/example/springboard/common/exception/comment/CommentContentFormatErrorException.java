@@ -10,15 +10,15 @@ public class CommentContentFormatErrorException extends GlobalException {
     public CommentContentFormatErrorException() {
     }
 
-    public CommentContentFormatErrorException(String message) {
-        super(message);
+    public CommentContentFormatErrorException(String message, String params) {
+        super(message, params);
     }
 
-    public CommentContentFormatErrorException(String message, Throwable cause) {
-        super(message, cause);
+    public CommentContentFormatErrorException(String message, Throwable cause, String params) {
+        super(message, cause, params);
     }
 
-    public CommentContentFormatErrorException(Throwable cause) {
-        super(cause);
+    public CommentContentFormatErrorException(Throwable cause, String params) {
+        super(cause, params);
     }
 }

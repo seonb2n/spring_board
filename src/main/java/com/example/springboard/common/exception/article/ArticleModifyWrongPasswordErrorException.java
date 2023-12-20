@@ -10,15 +10,16 @@ public class ArticleModifyWrongPasswordErrorException extends GlobalException {
     public ArticleModifyWrongPasswordErrorException() {
     }
 
-    public ArticleModifyWrongPasswordErrorException(String message) {
-        super(message);
+    public ArticleModifyWrongPasswordErrorException(String message, String params) {
+        super(message, params);
     }
 
-    public ArticleModifyWrongPasswordErrorException(String message, Throwable cause) {
-        super(message, cause);
+    public ArticleModifyWrongPasswordErrorException(String message, Throwable cause,
+        String params) {
+        super(message, cause, params);
     }
 
-    public ArticleModifyWrongPasswordErrorException(Throwable cause) {
-        super(cause);
+    public ArticleModifyWrongPasswordErrorException(Throwable cause, String params) {
+        super(cause, params);
     }
 }

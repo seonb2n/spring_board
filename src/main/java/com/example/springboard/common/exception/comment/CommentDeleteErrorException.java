@@ -10,15 +10,15 @@ public class CommentDeleteErrorException extends GlobalException {
     public CommentDeleteErrorException() {
     }
 
-    public CommentDeleteErrorException(String message) {
-        super(message);
+    public CommentDeleteErrorException(String message, String params) {
+        super(message, params);
     }
 
-    public CommentDeleteErrorException(String message, Throwable cause) {
-        super(message, cause);
+    public CommentDeleteErrorException(String message, Throwable cause, String params) {
+        super(message, cause, params);
     }
 
-    public CommentDeleteErrorException(Throwable cause) {
-        super(cause);
+    public CommentDeleteErrorException(Throwable cause, String params) {
+        super(cause, params);
     }
 }

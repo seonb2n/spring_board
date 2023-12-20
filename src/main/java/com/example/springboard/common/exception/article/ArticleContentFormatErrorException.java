@@ -10,15 +10,16 @@ public class ArticleContentFormatErrorException extends GlobalException {
     public ArticleContentFormatErrorException() {
     }
 
-    public ArticleContentFormatErrorException(String message) {
-        super(message);
+    public ArticleContentFormatErrorException(String message, String params) {
+        super(message, params);
     }
 
-    public ArticleContentFormatErrorException(String message, Throwable cause) {
-        super(message, cause);
+    public ArticleContentFormatErrorException(String message, Throwable cause, String params) {
+        super(message, cause, params);
     }
 
-    public ArticleContentFormatErrorException(Throwable cause) {
-        super(cause);
+    public ArticleContentFormatErrorException(Throwable cause, String params) {
+        super(cause, params);
     }
+
 }

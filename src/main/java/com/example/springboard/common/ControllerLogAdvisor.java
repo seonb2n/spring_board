@@ -1,5 +1,7 @@
 package com.example.springboard.common;
 
+import static com.example.springboard.util.converter.ParamMapConverter.paramMapToString;
+
 import com.example.springboard.common.handler.GlobalExceptionHandler;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -18,21 +20,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 public class ControllerLogAdvisor {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-
-    private String paramMapToString(Map<String, String[]> paramMap) {
-        StringBuilder stringBuilder = new StringBuilder();
-
-        for (Map.Entry<String, String[]> entry : paramMap.entrySet()) {
-            stringBuilder.append(entry.getKey()).append(": [");
-            String[] values = entry.getValue();
-            if (values != null && values.length > 0) {
-                stringBuilder.append(String.join(", ", values));
-            }
-            stringBuilder.append("]\n");
-        }
-
-        return stringBuilder.toString();
-    }
 
     @Pointcut("execution(* com.example.springboard..*Controller.*(..))")
     private void onRequest() {

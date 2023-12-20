@@ -10,15 +10,15 @@ public class ArticleDeleteErrorException extends GlobalException {
     public ArticleDeleteErrorException() {
     }
 
-    public ArticleDeleteErrorException(String message) {
-        super(message);
+    public ArticleDeleteErrorException(String message, String params) {
+        super(message, params);
     }
 
-    public ArticleDeleteErrorException(String message, Throwable cause) {
-        super(message, cause);
+    public ArticleDeleteErrorException(String message, Throwable cause, String params) {
+        super(message, cause, params);
     }
 
-    public ArticleDeleteErrorException(Throwable cause) {
-        super(cause);
+    public ArticleDeleteErrorException(Throwable cause, String params) {
+        super(cause, params);
     }
 }

@@ -1,10 +1,10 @@
 package com.example.springboard.common.handler;
 
-import com.example.springboard.common.ErrorCode;
 import com.example.springboard.common.ErrorResponse;
 import com.example.springboard.common.exception.auth.AuthErrorException;
 import com.example.springboard.common.exception.auth.LoginErrorException;
 import com.example.springboard.common.exception.auth.WrongCallErrorException;
+import com.example.springboard.util.enums.ErrorCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

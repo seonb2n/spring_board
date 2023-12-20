@@ -10,15 +10,15 @@ public class ArticleViewErrorException extends GlobalException {
     public ArticleViewErrorException() {
     }
 
-    public ArticleViewErrorException(String message) {
-        super(message);
+    public ArticleViewErrorException(String message, String params) {
+        super(message, params);
     }
 
-    public ArticleViewErrorException(String message, Throwable cause) {
-        super(message, cause);
+    public ArticleViewErrorException(String message, Throwable cause, String params) {
+        super(message, cause, params);
     }
 
-    public ArticleViewErrorException(Throwable cause) {
-        super(cause);
+    public ArticleViewErrorException(Throwable cause, String params) {
+        super(cause, params);
     }
 }

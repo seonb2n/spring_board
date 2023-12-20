@@ -10,15 +10,15 @@ public class DeleteBoardErrorException extends GlobalException {
     public DeleteBoardErrorException() {
     }
 
-    public DeleteBoardErrorException(String message) {
-        super(message);
+    public DeleteBoardErrorException(String message, String params) {
+        super(message, params);
     }
 
-    public DeleteBoardErrorException(String message, Throwable cause) {
-        super(message, cause);
+    public DeleteBoardErrorException(String message, Throwable cause, String params) {
+        super(message, cause, params);
     }
 
-    public DeleteBoardErrorException(Throwable cause) {
-        super(cause);
+    public DeleteBoardErrorException(Throwable cause, String params) {
+        super(cause, params);
     }
 }

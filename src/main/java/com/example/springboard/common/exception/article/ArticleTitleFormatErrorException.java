@@ -10,15 +10,15 @@ public class ArticleTitleFormatErrorException extends GlobalException {
     public ArticleTitleFormatErrorException() {
     }
 
-    public ArticleTitleFormatErrorException(String message) {
-        super(message);
+    public ArticleTitleFormatErrorException(String message, String params) {
+        super(message, params);
     }
 
-    public ArticleTitleFormatErrorException(String message, Throwable cause) {
-        super(message, cause);
+    public ArticleTitleFormatErrorException(String message, Throwable cause, String params) {
+        super(message, cause, params);
     }
 
-    public ArticleTitleFormatErrorException(Throwable cause) {
-        super(cause);
+    public ArticleTitleFormatErrorException(Throwable cause, String params) {
+        super(cause, params);
     }
 }

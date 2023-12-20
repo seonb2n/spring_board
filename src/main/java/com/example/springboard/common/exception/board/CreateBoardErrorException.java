@@ -10,15 +10,15 @@ public class CreateBoardErrorException extends GlobalException {
     public CreateBoardErrorException() {
     }
 
-    public CreateBoardErrorException(String message) {
-        super(message);
+    public CreateBoardErrorException(String message, String params) {
+        super(message, params);
     }
 
-    public CreateBoardErrorException(String message, Throwable cause) {
-        super(message, cause);
+    public CreateBoardErrorException(String message, Throwable cause, String params) {
+        super(message, cause, params);
     }
 
-    public CreateBoardErrorException(Throwable cause) {
-        super(cause);
+    public CreateBoardErrorException(Throwable cause, String params) {
+        super(cause, params);
     }
 }

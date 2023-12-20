@@ -10,15 +10,15 @@ public class GetArticleListErrorException extends GlobalException {
     public GetArticleListErrorException() {
     }
 
-    public GetArticleListErrorException(String message) {
-        super(message);
+    public GetArticleListErrorException(String message, String params) {
+        super(message, params);
     }
 
-    public GetArticleListErrorException(String message, Throwable cause) {
-        super(message, cause);
+    public GetArticleListErrorException(String message, Throwable cause, String params) {
+        super(message, cause, params);
     }
 
-    public GetArticleListErrorException(Throwable cause) {
-        super(cause);
+    public GetArticleListErrorException(Throwable cause, String params) {
+        super(cause, params);
     }
 }

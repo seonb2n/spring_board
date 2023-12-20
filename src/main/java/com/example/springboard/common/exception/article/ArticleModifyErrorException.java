@@ -10,15 +10,15 @@ public class ArticleModifyErrorException extends GlobalException {
     public ArticleModifyErrorException() {
     }
 
-    public ArticleModifyErrorException(String message) {
-        super(message);
+    public ArticleModifyErrorException(String message, String params) {
+        super(message, params);
     }
 
-    public ArticleModifyErrorException(String message, Throwable cause) {
-        super(message, cause);
+    public ArticleModifyErrorException(String message, Throwable cause, String params) {
+        super(message, cause, params);
     }
 
-    public ArticleModifyErrorException(Throwable cause) {
-        super(cause);
+    public ArticleModifyErrorException(Throwable cause, String params) {
+        super(cause, params);
     }
 }

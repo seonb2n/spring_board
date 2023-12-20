@@ -10,15 +10,15 @@ public class PasswordFormatErrorException extends GlobalException {
     public PasswordFormatErrorException() {
     }
 
-    public PasswordFormatErrorException(String message) {
-        super(message);
+    public PasswordFormatErrorException(String message, String params) {
+        super(message, params);
     }
 
-    public PasswordFormatErrorException(String message, Throwable cause) {
-        super(message, cause);
+    public PasswordFormatErrorException(String message, Throwable cause, String params) {
+        super(message, cause, params);
     }
 
-    public PasswordFormatErrorException(Throwable cause) {
-        super(cause);
+    public PasswordFormatErrorException(Throwable cause, String params) {
+        super(cause, params);
     }
 }

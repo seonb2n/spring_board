@@ -10,15 +10,15 @@ public class CommentCreateErrorException extends GlobalException {
     public CommentCreateErrorException() {
     }
 
-    public CommentCreateErrorException(String message) {
-        super(message);
+    public CommentCreateErrorException(String message, String params) {
+        super(message, params);
     }
 
-    public CommentCreateErrorException(String message, Throwable cause) {
-        super(message, cause);
+    public CommentCreateErrorException(String message, Throwable cause, String params) {
+        super(message, cause, params);
     }
 
-    public CommentCreateErrorException(Throwable cause) {
-        super(cause);
+    public CommentCreateErrorException(Throwable cause, String params) {
+        super(cause, params);
     }
 }

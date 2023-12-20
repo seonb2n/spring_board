@@ -10,15 +10,15 @@ public class GetListException extends GlobalException {
     public GetListException() {
     }
 
-    public GetListException(String message) {
-        super(message);
+    public GetListException(String message, String params) {
+        super(message, params);
     }
 
-    public GetListException(String message, Throwable cause) {
-        super(message, cause);
+    public GetListException(String message, Throwable cause, String params) {
+        super(message, cause, params);
     }
 
-    public GetListException(Throwable cause) {
-        super(cause);
+    public GetListException(Throwable cause, String params) {
+        super(cause, params);
     }
 }

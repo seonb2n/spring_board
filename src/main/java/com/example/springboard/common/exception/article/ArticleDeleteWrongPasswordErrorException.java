@@ -10,15 +10,16 @@ public class ArticleDeleteWrongPasswordErrorException extends GlobalException {
     public ArticleDeleteWrongPasswordErrorException() {
     }
 
-    public ArticleDeleteWrongPasswordErrorException(String message) {
-        super(message);
+    public ArticleDeleteWrongPasswordErrorException(String message, String params) {
+        super(message, params);
     }
 
-    public ArticleDeleteWrongPasswordErrorException(String message, Throwable cause) {
-        super(message, cause);
+    public ArticleDeleteWrongPasswordErrorException(String message, Throwable cause,
+        String params) {
+        super(message, cause, params);
     }
 
-    public ArticleDeleteWrongPasswordErrorException(Throwable cause) {
-        super(cause);
+    public ArticleDeleteWrongPasswordErrorException(Throwable cause, String params) {
+        super(cause, params);
     }
 }

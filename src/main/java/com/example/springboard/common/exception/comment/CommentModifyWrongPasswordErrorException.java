@@ -10,15 +10,16 @@ public class CommentModifyWrongPasswordErrorException extends GlobalException {
     public CommentModifyWrongPasswordErrorException() {
     }
 
-    public CommentModifyWrongPasswordErrorException(String message) {
-        super(message);
+    public CommentModifyWrongPasswordErrorException(String message, String params) {
+        super(message, params);
     }
 
-    public CommentModifyWrongPasswordErrorException(String message, Throwable cause) {
-        super(message, cause);
+    public CommentModifyWrongPasswordErrorException(String message, Throwable cause,
+        String params) {
+        super(message, cause, params);
     }
 
-    public CommentModifyWrongPasswordErrorException(Throwable cause) {
-        super(cause);
+    public CommentModifyWrongPasswordErrorException(Throwable cause, String params) {
+        super(cause, params);
     }
 }

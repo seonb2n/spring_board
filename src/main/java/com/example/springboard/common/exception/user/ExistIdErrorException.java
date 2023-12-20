@@ -10,15 +10,15 @@ public class ExistIdErrorException extends GlobalException {
     public ExistIdErrorException() {
     }
 
-    public ExistIdErrorException(String message) {
-        super(message);
+    public ExistIdErrorException(String message, String params) {
+        super(message, params);
     }
 
-    public ExistIdErrorException(String message, Throwable cause) {
-        super(message, cause);
+    public ExistIdErrorException(String message, Throwable cause, String params) {
+        super(message, cause, params);
     }
 
-    public ExistIdErrorException(Throwable cause) {
-        super(cause);
+    public ExistIdErrorException(Throwable cause, String params) {
+        super(cause, params);
     }
 }

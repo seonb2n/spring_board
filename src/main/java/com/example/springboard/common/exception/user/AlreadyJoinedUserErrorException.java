@@ -10,15 +10,15 @@ public class AlreadyJoinedUserErrorException extends GlobalException {
     public AlreadyJoinedUserErrorException() {
     }
 
-    public AlreadyJoinedUserErrorException(String message) {
-        super(message);
+    public AlreadyJoinedUserErrorException(String message, String params) {
+        super(message, params);
     }
 
-    public AlreadyJoinedUserErrorException(String message, Throwable cause) {
-        super(message, cause);
+    public AlreadyJoinedUserErrorException(String message, Throwable cause, String params) {
+        super(message, cause, params);
     }
 
-    public AlreadyJoinedUserErrorException(Throwable cause) {
-        super(cause);
+    public AlreadyJoinedUserErrorException(Throwable cause, String params) {
+        super(cause, params);
     }
 }

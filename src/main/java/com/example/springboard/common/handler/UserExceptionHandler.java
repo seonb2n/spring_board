@@ -1,6 +1,5 @@
 package com.example.springboard.common.handler;
 
-import com.example.springboard.common.ErrorCode;
 import com.example.springboard.common.ErrorResponse;
 import com.example.springboard.common.exception.user.AlreadyJoinedUserErrorException;
 import com.example.springboard.common.exception.user.ExistIdErrorException;
@@ -9,6 +8,7 @@ import com.example.springboard.common.exception.user.NicknameFormatErrorExceptio
 import com.example.springboard.common.exception.user.PasswordFormatErrorException;
 import com.example.springboard.common.exception.user.ResetPasswordErrorException;
 import com.example.springboard.common.exception.user.VerifyRealErrorException;
+import com.example.springboard.util.enums.ErrorCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -59,14 +59,16 @@ public class UserExceptionHandler {
 
     @ExceptionHandler(VerifyRealErrorException.class)
     public ResponseEntity<ErrorResponse> handleVerifyRealErrorException(VerifyRealErrorException exception) {
-        logger.error("Exception: occurred : " + exception.getMessage(), exception);
+        logger.error("Exception: occurred : " + exception.getMessage(), exception.getParams(),
+            exception);
         ErrorResponse errorResponse = new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR, exception.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(ResetPasswordErrorException.class)
     public ResponseEntity<ErrorResponse> handleResetPasswordErrorException(ResetPasswordErrorException exception) {
-        logger.error("Exception: occurred : " + exception.getMessage(), exception);
+        logger.error("Exception: occurred : " + exception.getMessage(), exception.getParams(),
+            exception);
         ErrorResponse errorResponse = new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR, exception.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }

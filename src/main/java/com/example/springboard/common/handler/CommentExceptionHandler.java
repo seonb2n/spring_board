@@ -1,6 +1,5 @@
 package com.example.springboard.common.handler;
 
-import com.example.springboard.common.ErrorCode;
 import com.example.springboard.common.ErrorResponse;
 import com.example.springboard.common.exception.comment.CommentContentFormatErrorException;
 import com.example.springboard.common.exception.comment.CommentCreateErrorException;
@@ -8,6 +7,7 @@ import com.example.springboard.common.exception.comment.CommentDeleteErrorExcept
 import com.example.springboard.common.exception.comment.CommentModifyErrorException;
 import com.example.springboard.common.exception.comment.CommentModifyWrongPasswordErrorException;
 import com.example.springboard.common.exception.comment.CommentViewErrorException;
+import com.example.springboard.util.enums.ErrorCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -36,28 +36,32 @@ public class CommentExceptionHandler {
 
     @ExceptionHandler(CommentDeleteErrorException.class)
     public ResponseEntity<ErrorResponse> handleCommentDeleteErrorException(CommentDeleteErrorException exception) {
-        logger.error("Exception: occurred : " + exception.getMessage(), exception);
+        logger.error("Exception: occurred : " + exception.getMessage(), exception.getParams(),
+            exception);
         ErrorResponse errorResponse = new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR, exception.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(CommentModifyErrorException.class)
     public ResponseEntity<ErrorResponse> handleCommentModifyErrorException(CommentModifyErrorException exception) {
-        logger.error("Exception: occurred : " + exception.getMessage(), exception);
+        logger.error("Exception: occurred : " + exception.getMessage(), exception.getParams(),
+            exception);
         ErrorResponse errorResponse = new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR, exception.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(CommentViewErrorException.class)
     public ResponseEntity<ErrorResponse> handleCommentViewErrorException(CommentViewErrorException exception) {
-        logger.error("Exception: occurred : " + exception.getMessage(), exception);
+        logger.error("Exception: occurred : " + exception.getMessage(), exception.getParams(),
+            exception);
         ErrorResponse errorResponse = new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR, exception.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(CommentCreateErrorException.class)
     public ResponseEntity<ErrorResponse> handleCommentCreateErrorException(CommentCreateErrorException exception) {
-        logger.error("Exception: occurred : " + exception.getMessage(), exception);
+        logger.error("Exception: occurred : " + exception.getMessage(), exception.getParams(),
+            exception);
         ErrorResponse errorResponse = new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR, exception.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }

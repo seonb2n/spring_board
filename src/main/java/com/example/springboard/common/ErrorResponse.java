@@ -1,5 +1,6 @@
 package com.example.springboard.common;
 
+import com.example.springboard.util.enums.ErrorCode;
 import java.util.Map;
 
 public class ErrorResponse {

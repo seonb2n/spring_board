@@ -10,15 +10,15 @@ public class ModifyBoardScopeErrorException extends GlobalException {
     public ModifyBoardScopeErrorException() {
     }
 
-    public ModifyBoardScopeErrorException(String message) {
-        super(message);
+    public ModifyBoardScopeErrorException(String message, String params) {
+        super(message, params);
     }
 
-    public ModifyBoardScopeErrorException(String message, Throwable cause) {
-        super(message, cause);
+    public ModifyBoardScopeErrorException(String message, Throwable cause, String params) {
+        super(message, cause, params);
     }
 
-    public ModifyBoardScopeErrorException(Throwable cause) {
-        super(cause);
+    public ModifyBoardScopeErrorException(Throwable cause, String params) {
+        super(cause, params);
     }
 }

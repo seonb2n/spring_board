@@ -1,8 +1,8 @@
 package com.example.springboard.common.handler;
 
-import com.example.springboard.common.ErrorCode;
 import com.example.springboard.common.ErrorResponse;
 import com.example.springboard.common.exception.GlobalException;
+import com.example.springboard.util.enums.ErrorCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -16,8 +16,10 @@ public class GlobalExceptionHandler {
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(GlobalException.class)
-    public ResponseEntity<ErrorResponse> handleException(Exception exception) {
-        logger.error("Exception: occurred : " + exception.getMessage(), exception);
+    public ResponseEntity<ErrorResponse> handleException(GlobalException exception) {
+        logger.error("Exception: occurred : " + exception.getMessage(), exception.getParams(),
+            exception.getParams(),
+            exception);
         ErrorResponse errorResponse = new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR, exception.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }

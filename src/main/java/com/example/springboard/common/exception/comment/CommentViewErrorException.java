@@ -10,15 +10,15 @@ public class CommentViewErrorException extends GlobalException {
     public CommentViewErrorException() {
     }
 
-    public CommentViewErrorException(String message) {
-        super(message);
+    public CommentViewErrorException(String message, String params) {
+        super(message, params);
     }
 
-    public CommentViewErrorException(String message, Throwable cause) {
-        super(message, cause);
+    public CommentViewErrorException(String message, Throwable cause, String params) {
+        super(message, cause, params);
     }
 
-    public CommentViewErrorException(Throwable cause) {
-        super(cause);
+    public CommentViewErrorException(Throwable cause, String params) {
+        super(cause, params);
     }
 }

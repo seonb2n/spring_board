@@ -1,6 +1,5 @@
 package com.example.springboard.common.handler;
 
-import com.example.springboard.common.ErrorCode;
 import com.example.springboard.common.ErrorResponse;
 import com.example.springboard.common.exception.article.ArticleContentFormatErrorException;
 import com.example.springboard.common.exception.article.ArticleCreateErrorException;
@@ -10,6 +9,7 @@ import com.example.springboard.common.exception.article.ArticleModifyErrorExcept
 import com.example.springboard.common.exception.article.ArticleModifyWrongPasswordErrorException;
 import com.example.springboard.common.exception.article.ArticleTitleFormatErrorException;
 import com.example.springboard.common.exception.article.ArticleViewErrorException;
+import com.example.springboard.util.enums.ErrorCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -52,28 +52,32 @@ public class ArticleExceptionHandler {
 
     @ExceptionHandler(ArticleViewErrorException.class)
     public ResponseEntity<ErrorResponse> handleArticleViewErrorException(ArticleViewErrorException exception) {
-        logger.error("Exception: occurred : " + exception.getMessage(), exception);
+        logger.error("Exception: occurred : " + exception.getMessage(), exception.getParams(),
+            exception);
         ErrorResponse errorResponse = new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR, exception.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(ArticleCreateErrorException.class)
     public ResponseEntity<ErrorResponse> handleArticleCreateErrorException(ArticleCreateErrorException exception) {
-        logger.error("Exception: occurred : " + exception.getMessage(), exception);
+        logger.error("Exception: occurred : " + exception.getMessage(), exception.getParams(),
+            exception);
         ErrorResponse errorResponse = new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR, exception.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(ArticleDeleteErrorException.class)
     public ResponseEntity<ErrorResponse> handleArticleDeleteErrorException(ArticleDeleteErrorException exception) {
-        logger.error("Exception: occurred : " + exception.getMessage(), exception);
+        logger.error("Exception: occurred : " + exception.getMessage(), exception.getParams(),
+            exception);
         ErrorResponse errorResponse = new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR, exception.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(ArticleModifyErrorException.class)
     public ResponseEntity<ErrorResponse> handleArticleModifyErrorException(ArticleModifyErrorException exception) {
-        logger.error("Exception: occurred : " + exception.getMessage(), exception);
+        logger.error("Exception: occurred : " + exception.getMessage(), exception.getParams(),
+            exception);
         ErrorResponse errorResponse = new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR, exception.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }

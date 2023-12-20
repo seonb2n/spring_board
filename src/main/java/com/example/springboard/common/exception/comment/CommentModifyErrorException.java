@@ -10,15 +10,15 @@ public class CommentModifyErrorException extends GlobalException {
     public CommentModifyErrorException() {
     }
 
-    public CommentModifyErrorException(String message) {
-        super(message);
+    public CommentModifyErrorException(String message, String params) {
+        super(message, params);
     }
 
-    public CommentModifyErrorException(String message, Throwable cause) {
-        super(message, cause);
+    public CommentModifyErrorException(String message, Throwable cause, String params) {
+        super(message, cause, params);
     }
 
-    public CommentModifyErrorException(Throwable cause) {
-        super(cause);
+    public CommentModifyErrorException(Throwable cause, String params) {
+        super(cause, params);
     }
 }

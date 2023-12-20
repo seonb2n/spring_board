@@ -10,15 +10,15 @@ public class VerifyRealErrorException extends GlobalException {
     public VerifyRealErrorException() {
     }
 
-    public VerifyRealErrorException(String message) {
-        super(message);
+    public VerifyRealErrorException(String message, String params) {
+        super(message, params);
     }
 
-    public VerifyRealErrorException(String message, Throwable cause) {
-        super(message, cause);
+    public VerifyRealErrorException(String message, Throwable cause, String params) {
+        super(message, cause, params);
     }
 
-    public VerifyRealErrorException(Throwable cause) {
-        super(cause);
+    public VerifyRealErrorException(Throwable cause, String params) {
+        super(cause, params);
     }
 }

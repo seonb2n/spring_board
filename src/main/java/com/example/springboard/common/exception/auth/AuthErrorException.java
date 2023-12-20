@@ -10,15 +10,15 @@ public class AuthErrorException extends GlobalException {
     public AuthErrorException() {
     }
 
-    public AuthErrorException(String message) {
-        super(message);
+    public AuthErrorException(String message, String params) {
+        super(message, params);
     }
 
-    public AuthErrorException(String message, Throwable cause) {
-        super(message, cause);
+    public AuthErrorException(String message, Throwable cause, String params) {
+        super(message, cause, params);
     }
 
-    public AuthErrorException(Throwable cause) {
-        super(cause);
+    public AuthErrorException(Throwable cause, String params) {
+        super(cause, params);
     }
 }

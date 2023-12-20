@@ -10,15 +10,15 @@ public class LoginErrorException extends GlobalException {
     public LoginErrorException() {
     }
 
-    public LoginErrorException(String message) {
-        super(message);
+    public LoginErrorException(String message, String params) {
+        super(message, params);
     }
 
-    public LoginErrorException(String message, Throwable cause) {
-        super(message, cause);
+    public LoginErrorException(String message, Throwable cause, String params) {
+        super(message, cause, params);
     }
 
-    public LoginErrorException(Throwable cause) {
-        super(cause);
+    public LoginErrorException(Throwable cause, String params) {
+        super(cause, params);
     }
 }

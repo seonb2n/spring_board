@@ -1,4 +1,4 @@
-package com.example.springboard.common;
+package com.example.springboard.util.enums;
 
 public enum ErrorCode {
   NOT_FOUND(404, "PAGE NOT FOUND"),

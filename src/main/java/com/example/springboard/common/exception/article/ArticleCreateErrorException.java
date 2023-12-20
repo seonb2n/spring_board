@@ -10,15 +10,15 @@ public class ArticleCreateErrorException extends GlobalException {
     public ArticleCreateErrorException() {
     }
 
-    public ArticleCreateErrorException(String message) {
-        super(message);
+    public ArticleCreateErrorException(String message, String params) {
+        super(message, params);
     }
 
-    public ArticleCreateErrorException(String message, Throwable cause) {
-        super(message, cause);
+    public ArticleCreateErrorException(String message, Throwable cause, String params) {
+        super(message, cause, params);
     }
 
-    public ArticleCreateErrorException(Throwable cause) {
-        super(cause);
+    public ArticleCreateErrorException(Throwable cause, String params) {
+        super(cause, params);
     }
 }
