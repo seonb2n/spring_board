@@ -1,5 +1,7 @@
-package com.example.springboard.common;
+package com.example.springboard.common.handler;
 
+import com.example.springboard.common.ErrorCode;
+import com.example.springboard.common.ErrorResponse;
 import com.example.springboard.common.exception.GlobalException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

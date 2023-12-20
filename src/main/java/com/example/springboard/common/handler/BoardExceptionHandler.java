@@ -1,8 +1,12 @@
-package com.example.springboard.common.exception.board;
+package com.example.springboard.common.handler;
 
 import com.example.springboard.common.ErrorCode;
 import com.example.springboard.common.ErrorResponse;
-import com.example.springboard.common.GlobalExceptionHandler;
+import com.example.springboard.common.exception.board.CreateBoardErrorException;
+import com.example.springboard.common.exception.board.DeleteBoardErrorException;
+import com.example.springboard.common.exception.board.GetArticleListErrorException;
+import com.example.springboard.common.exception.board.GetListException;
+import com.example.springboard.common.exception.board.ModifyBoardScopeErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

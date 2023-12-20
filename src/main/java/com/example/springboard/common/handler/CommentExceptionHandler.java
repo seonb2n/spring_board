@@ -1,8 +1,13 @@
-package com.example.springboard.common.exception.comment;
+package com.example.springboard.common.handler;
 
 import com.example.springboard.common.ErrorCode;
 import com.example.springboard.common.ErrorResponse;
-import com.example.springboard.common.GlobalExceptionHandler;
+import com.example.springboard.common.exception.comment.CommentContentFormatErrorException;
+import com.example.springboard.common.exception.comment.CommentCreateErrorException;
+import com.example.springboard.common.exception.comment.CommentDeleteErrorException;
+import com.example.springboard.common.exception.comment.CommentModifyErrorException;
+import com.example.springboard.common.exception.comment.CommentModifyWrongPasswordErrorException;
+import com.example.springboard.common.exception.comment.CommentViewErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

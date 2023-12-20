@@ -1,8 +1,14 @@
-package com.example.springboard.common.exception.user;
+package com.example.springboard.common.handler;
 
 import com.example.springboard.common.ErrorCode;
 import com.example.springboard.common.ErrorResponse;
-import com.example.springboard.common.GlobalExceptionHandler;
+import com.example.springboard.common.exception.user.AlreadyJoinedUserErrorException;
+import com.example.springboard.common.exception.user.ExistIdErrorException;
+import com.example.springboard.common.exception.user.FindIdNoUserErrorException;
+import com.example.springboard.common.exception.user.NicknameFormatErrorException;
+import com.example.springboard.common.exception.user.PasswordFormatErrorException;
+import com.example.springboard.common.exception.user.ResetPasswordErrorException;
+import com.example.springboard.common.exception.user.VerifyRealErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

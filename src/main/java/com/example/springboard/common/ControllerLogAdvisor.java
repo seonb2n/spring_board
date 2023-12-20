@@ -1,5 +1,6 @@
 package com.example.springboard.common;
 
+import com.example.springboard.common.handler.GlobalExceptionHandler;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Map;
 import org.aspectj.lang.ProceedingJoinPoint;
