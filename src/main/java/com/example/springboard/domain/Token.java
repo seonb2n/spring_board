@@ -10,17 +10,16 @@ public class Token {
     LocalDateTime createdAt;
     LocalDateTime expiredAt;
 
-    private Token(Integer tokenId, Integer userId, String tokenValue, LocalDateTime createdAt,
+    private Token(Integer userId, String tokenValue, LocalDateTime createdAt,
         LocalDateTime expiredAt) {
-        this.tokenId = tokenId;
         this.userId = userId;
         this.tokenValue = tokenValue;
         this.createdAt = createdAt;
         this.expiredAt = expiredAt;
     }
 
-    public static Token of(Integer tokenId, Integer userId, String tokenValue) {
-        return new Token(tokenId, userId, tokenValue, LocalDateTime.now(),
+    public static Token of(Integer userId, String tokenValue) {
+        return new Token(userId, tokenValue, LocalDateTime.now(),
             LocalDateTime.now().plusDays(7));
     }
 

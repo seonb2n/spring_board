@@ -19,7 +19,7 @@ public class TokenService {
 
     public String createToken(Integer userId) {
         String tokenValue = UUID.randomUUID().toString();
-        Token createdToken = Token.of(0, userId, tokenValue);
+        Token createdToken = Token.of(userId, tokenValue);
         tokenRepository.saveToken(createdToken);
         return tokenValue;
     }

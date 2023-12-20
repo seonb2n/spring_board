@@ -1,0 +1,12 @@
+<mapper namespace="com.example.mapper.TokenMapper">
+  <insert id="insertToken" keyProperty="tokenId"
+    parameterType="com.example.springboard.domain.Token" useGeneratedKeys="true">
+    INSERT INTO tokens (userId, tokenValue, createdAt, expiredAt) VALUES (#{userId}, #{tokenValue},
+    #{createdAt}, #{expiredAt})
+  </insert>
+
+  <select id="findTokenByValue" parameterType="string"
+    resultType="com.example.springboard.domain.Token">
+    SELECT * FROM tokens WHERE token_value = #{tokenValue}
+  </select>
+</mapper>
