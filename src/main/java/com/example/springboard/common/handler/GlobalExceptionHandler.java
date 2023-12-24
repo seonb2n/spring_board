@@ -17,10 +17,18 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(GlobalException.class)
     public ResponseEntity<ErrorResponse> handleException(GlobalException exception) {
-        logger.error("Exception: occurred : " + exception.getMessage(), exception.getParams(),
-            exception.getParams(),
-            exception);
-        ErrorResponse errorResponse = new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR, exception.getMessage());
-        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+        switch (exception.getLogLevel()) {
+            case INFO -> logger.info("Exception: occurred : " + exception.getMessage(), exception);
+            case WARN -> logger.warn("Exception: occurred : " + exception.getMessage(),
+                exception.getParams(), exception);
+            case ERROR -> logger.error("Exception: occurred : " + exception.getMessage(),
+                exception.getParams(), exception);
+            default -> logger.info("Exception: occurred : " + exception.getMessage(),
+                exception.getParams(), exception);
+        }
+
+        ErrorResponse errorResponse = new ErrorResponse(ErrorCode.BAD_REQUEST,
+            exception.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 }

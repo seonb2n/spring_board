@@ -1,8 +1,8 @@
 package com.example.springboard.domain.users;
 
 import com.example.springboard.domain.BaseEntity;
-import com.example.springboard.util.enums.AUTHTYPE;
-import com.example.springboard.util.enums.GENDER;
+import com.example.springboard.util.enums.AuthType;
+import com.example.springboard.util.enums.Gender;
 import java.time.LocalDate;
 
 public class User extends BaseEntity {
@@ -11,15 +11,15 @@ public class User extends BaseEntity {
     private String userName;
     private String accountId;
     private String accountPassword;
-    private AUTHTYPE authtype;
+    private AuthType authtype;
     private String realName;
     private LocalDate birthDate;
-    private GENDER gender;
+    private Gender gender;
     private String phoneNumber;
 
     private User(int id, String userName, String accountId, String accountPassword,
-        AUTHTYPE authtype,
-        String realName, LocalDate birthDate, GENDER gender, String phoneNumber) {
+        AuthType authtype,
+        String realName, LocalDate birthDate, Gender gender, String phoneNumber) {
         this.id = id;
         this.userName = userName;
         this.accountId = accountId;
@@ -32,7 +32,7 @@ public class User extends BaseEntity {
     }
 
     static User of(int id, String userName, String accountId, String accountPassword,
-        AUTHTYPE authtype, String realName, LocalDate birthDate, GENDER gender,
+        AuthType authtype, String realName, LocalDate birthDate, Gender gender,
         String phoneNumber) {
         return new User(id, userName, accountId, accountPassword, authtype, realName, birthDate,
             gender, phoneNumber);
@@ -54,7 +54,7 @@ public class User extends BaseEntity {
         return accountPassword;
     }
 
-    public AUTHTYPE getAuthtype() {
+    public AuthType getAuthtype() {
         return authtype;
     }
 
@@ -66,7 +66,7 @@ public class User extends BaseEntity {
         return birthDate;
     }
 
-    public GENDER getGender() {
+    public Gender getGender() {
         return gender;
     }
 
