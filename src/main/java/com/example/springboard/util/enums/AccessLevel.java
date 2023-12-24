@@ -1,6 +1,6 @@
 package com.example.springboard.util.enums;
 
-public enum ACCESSLEVEL {
+public enum AccessLevel {
 
     MEMBER_ONLY,
     NO_MEMBER_ONLY,

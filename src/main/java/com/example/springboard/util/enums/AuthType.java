@@ -1,6 +1,6 @@
 package com.example.springboard.util.enums;
 
-public enum AUTHTYPE {
+public enum AuthType {
     CELL_PHONE,
     EMAIL
 }
