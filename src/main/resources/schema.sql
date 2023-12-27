@@ -1,3 +1,12 @@
+DROP table if exists token;
+DROP table if exists users;
+DROP table if exists registered_users;
+DROP table if exists board_access_authorities;
+DROP table if exists boards;
+DROP table if exists articles;
+DROP table if exists comments;
+
+
 CREATE TABLE token
 (
     tokenId    INT AUTO_INCREMENT PRIMARY KEY,

@@ -1,76 +1,43 @@
 package com.example.springboard.domain.users;
 
 import com.example.springboard.domain.BaseEntity;
-import com.example.springboard.util.enums.AuthType;
-import com.example.springboard.util.enums.Gender;
-import java.time.LocalDate;
 
 public class User extends BaseEntity {
 
-    private int id;
-    private String userName;
-    private String accountId;
-    private String accountPassword;
-    private AuthType authtype;
-    private String realName;
-    private LocalDate birthDate;
-    private Gender gender;
-    private String phoneNumber;
+    private Integer id;
+    private Integer userId;
+    private String nickname;
+    private String password;
+    private Boolean isRegistered;
 
-    private User(int id, String userName, String accountId, String accountPassword,
-        AuthType authtype,
-        String realName, LocalDate birthDate, Gender gender, String phoneNumber) {
-        this.id = id;
-        this.userName = userName;
-        this.accountId = accountId;
-        this.accountPassword = accountPassword;
-        this.authtype = authtype;
-        this.realName = realName;
-        this.birthDate = birthDate;
-        this.gender = gender;
-        this.phoneNumber = phoneNumber;
+    private User(Integer userId, String nickname, String password, Boolean isRegistered) {
+        this.userId = userId;
+        this.nickname = nickname;
+        this.password = password;
+        this.isRegistered = isRegistered;
     }
 
-    static User of(int id, String userName, String accountId, String accountPassword,
-        AuthType authtype, String realName, LocalDate birthDate, Gender gender,
-        String phoneNumber) {
-        return new User(id, userName, accountId, accountPassword, authtype, realName, birthDate,
-            gender, phoneNumber);
+    public static User of(Integer userId, String nickname, String password, Boolean isRegistered) {
+        return new User(userId, nickname, password, isRegistered);
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public String getUserName() {
-        return userName;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public String getAccountId() {
-        return accountId;
+    public String getNickname() {
+        return nickname;
     }
 
-    public String getAccountPassword() {
-        return accountPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public AuthType getAuthtype() {
-        return authtype;
-    }
-
-    public String getRealName() {
-        return realName;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public Boolean getRegistered() {
+        return isRegistered;
     }
 }
