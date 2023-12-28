@@ -29,7 +29,6 @@ CREATE TABLE users
 CREATE TABLE registered_users
 (
     id           INT PRIMARY KEY AUTO_INCREMENT,
-    real_user_id INT          NOT NULL COMMENT '회원 실명 정보',
     account_id   varchar(255) NOT NULL COMMENT '회원 아이디',
     real_name    varchar(255) NOT NULL COMMENT '실명',
     birth_date   varchar(255) NOT NULL COMMENT '생년월일(YYYYMMDD)',
@@ -72,3 +71,15 @@ CREATE TABLE comments
     created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP    NOT NULL
 );
+
+INSERT INTO board.users
+(registered_user_id, nickname, password, is_registered, created_at)
+VALUES (null, 'test01', '1234', 0, CURRENT_TIMESTAMP);
+
+INSERT INTO board.users
+(registered_user_id, nickname, password, is_registered, created_at)
+VALUES (1, 'test01', '1234', 1, CURRENT_TIMESTAMP);
+
+INSERT INTO board.registered_users
+(id, account_id, real_name, birth_date, mobile_no, created_at)
+VALUES (1, 'test01_id', '김테스트', '001228', '010-1234-5678', CURRENT_TIMESTAMP);
