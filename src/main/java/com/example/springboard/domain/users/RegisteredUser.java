@@ -5,36 +5,39 @@ import com.example.springboard.domain.BaseEntity;
 public class RegisteredUser extends BaseEntity {
 
     private Integer id;
-    private Integer realUserId;
-    private Integer accountId;
+    private String accountId;
+    private String accountPassword;
     private String realName;
     private String birthDate;
     private String mobileNo;
 
-    private RegisteredUser(Integer realUserId, Integer accountId, String realName, String birthDate,
-        String mobileNo) {
-        this.realUserId = realUserId;
+    public RegisteredUser(Integer id, String accountId, String accountPassword, String realName,
+        String birthDate, String mobileNo) {
+        this.id = id;
         this.accountId = accountId;
+        this.accountPassword = accountPassword;
         this.realName = realName;
         this.birthDate = birthDate;
         this.mobileNo = mobileNo;
     }
 
-    public static RegisteredUser of(Integer realUserId, Integer accountId, String realName,
+    public static RegisteredUser of(Integer realUserId, String accountId, String accountPassword,
+        String realName,
         String birthDate, String mobileNo) {
-        return new RegisteredUser(realUserId, accountId, realName, birthDate, mobileNo);
+        return new RegisteredUser(realUserId, accountId, accountPassword, realName, birthDate,
+            mobileNo);
     }
 
     public Integer getId() {
         return id;
     }
 
-    public Integer getRealUserId() {
-        return realUserId;
+    public String getAccountId() {
+        return accountId;
     }
 
-    public Integer getAccountId() {
-        return accountId;
+    public String getAccountPassword() {
+        return accountPassword;
     }
 
     public String getRealName() {

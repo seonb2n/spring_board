@@ -9,20 +9,20 @@ DROP table if exists comments;
 
 CREATE TABLE token
 (
-    tokenId    INT AUTO_INCREMENT PRIMARY KEY,
-    userId     INT          NOT NULL COMMENT '회원 아이디',
-    tokenValue VARCHAR(255) NOT NULL COMMENT '토큰 값',
-    createdAt  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '토큰 생성일자',
-    expiredAt  TIMESTAMP    NOT NULL COMMENT '토큰 만료일자'
+    token_id    INT AUTO_INCREMENT PRIMARY KEY,
+    user_id     INT          NOT NULL COMMENT '회원 아이디',
+    token_value VARCHAR(255) NOT NULL COMMENT '토큰 값',
+    created_at  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '토큰 생성일자',
+    expired_at  TIMESTAMP    NOT NULL COMMENT '토큰 만료일자'
 );
 
 CREATE TABLE users
 (
     id                 INT AUTO_INCREMENT PRIMARY KEY,
-    registered_user_id INT COMMENT '가입 회원 아이디',
     nickname           varchar(255) NOT NULL COMMENT '닉네임',
-    password           varchar(255) NOT NULL COMMENT '비회원 비밀번호',
     is_registered      boolean      NOT NULL COMMENT '회원 비회원 여부',
+    registered_user_id INT COMMENT '가입 회원 아이디',
+    password           varchar(255) COMMENT '비회원 비밀번호',
     created_at         TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '회원 생성일자'
 );
 
@@ -30,6 +30,7 @@ CREATE TABLE registered_users
 (
     id           INT PRIMARY KEY AUTO_INCREMENT,
     account_id   varchar(255) NOT NULL COMMENT '회원 아이디',
+    account_password varchar(255) NOT NULL COMMENT '회원 비밀번호',
     real_name    varchar(255) NOT NULL COMMENT '실명',
     birth_date   varchar(255) NOT NULL COMMENT '생년월일(YYYYMMDD)',
     mobile_no    varchar(255) NOT NULL COMMENT '휴대폰 번호',
@@ -81,5 +82,5 @@ INSERT INTO board.users
 VALUES (1, 'test01', '1234', 1, CURRENT_TIMESTAMP);
 
 INSERT INTO board.registered_users
-(id, account_id, real_name, birth_date, mobile_no, created_at)
-VALUES (1, 'test01_id', '김테스트', '001228', '010-1234-5678', CURRENT_TIMESTAMP);
+(id, account_id, account_password, real_name, birth_date, mobile_no, created_at)
+VALUES (1, 'test01_id', 'test01_password', '김테스트', '001228', '010-1234-5678', CURRENT_TIMESTAMP);

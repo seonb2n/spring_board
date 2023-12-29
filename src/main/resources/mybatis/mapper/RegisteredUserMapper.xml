@@ -1,0 +1,10 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.RegisteredUserMapper">
+  <select id="findUserByUserName" parameterType="string"
+    resultType="com.example.springboard.domain.users.RegisteredUser">
+    SELECT id, account_id, account_password
+    FROM registered_users
+    WHERE account_id = #{accountId}
+  </select>
+</mapper>
