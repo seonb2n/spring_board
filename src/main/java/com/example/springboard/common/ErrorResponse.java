@@ -1,55 +1,30 @@
 package com.example.springboard.common;
 
-import com.example.springboard.util.enums.ErrorCode;
-import java.util.Map;
+import com.example.springboard.util.enums.ErrorTypeWithRequest;
 
 public class ErrorResponse {
 
-    private int status;
-    private String code;
-    private String msgTitle;
+    private int statusCode;
     private String message;
-    private Map<String, String> errors;
 
-    public ErrorResponse(ErrorCode errorCode, String message) {
-        this.status = errorCode.getStatus();
-        this.code = errorCode.name();
+    public ErrorResponse(ErrorTypeWithRequest errorCode, String message) {
+        this.statusCode = errorCode.getCode();
         this.message = message != null ? message : errorCode.getMessage();
     }
 
-    public ErrorResponse(ErrorCode errorCode, String msgTitle,
-                         String message) {
-        this.status = errorCode.getStatus();
-        this.code = errorCode.name();
-        this.msgTitle = msgTitle != null ? msgTitle : errorCode.getMessage();
-        this.message = message != null ? message : errorCode.getMessage();
-    }
-
-    public ErrorResponse(ErrorCode errorCode, String message,
-                         Map<String, String> errors) {
-        this.status = errorCode.getStatus();
-        this.code = errorCode.name();
-        this.message = message != null ? message : errorCode.getMessage();
-        this.errors = errors;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getMsgTitle() {
-        return msgTitle;
+    public int getStatusCode() {
+        return statusCode;
     }
 
     public String getMessage() {
         return message;
     }
 
-    public Map<String, String> getErrors() {
-        return errors;
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

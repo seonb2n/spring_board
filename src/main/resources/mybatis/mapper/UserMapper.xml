@@ -1,17 +1,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.mapper.UserMapper">
-  <select id="findUserByUserName" parameterType="string"
+<mapper namespace="com.example.springboard.mapper.UserMapper">
+  <select id="findUserByNickName" parameterType="string"
     resultType="com.example.springboard.domain.users.User">
     SELECT nickname, password, is_registered
     FROM users
     WHERE nickname = #{nickname}
   </select>
 
-  <select id="findUserByRegisteredUserId" parameterType="string"
+  <select id="findUserByRegisteredUserId" parameterType="integer"
     resultType="com.example.springboard.domain.users.User">
     SELECT id, nickname, password, is_registered, registered_user_id
     FROM users
     WHERE registered_user_id = #{registeredUserId}
+  </select>
+
+  <select id="findUserByUserId" parameterType="integer"
+    resultType="com.example.springboard.domain.users.User">
+    SELECT id, nickname, password, is_registered, registered_user_id
+    FROM users
+    WHERE registered_user_id = #{userId}
   </select>
 </mapper>
