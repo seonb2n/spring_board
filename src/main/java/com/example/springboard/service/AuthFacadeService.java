@@ -1,8 +1,12 @@
 package com.example.springboard.service;
 
 import com.example.springboard.common.exception.GlobalException;
-import com.example.springboard.common.exception.user.UserPasswordWrongException;
+import com.example.springboard.domain.Token;
+import com.example.springboard.domain.articles.Article;
+import com.example.springboard.domain.articles.Comment;
 import com.example.springboard.domain.users.User;
+import com.example.springboard.util.enums.ErrorTypeWithRequest;
+import java.util.Map;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,10 +14,24 @@ public class AuthFacadeService {
 
     private final UserService userService;
     private final TokenService tokenService;
+    private final ArticleService articleService;
+    private final CommentService commentService;
 
-    public AuthFacadeService(UserService userService, TokenService tokenService) {
+    public AuthFacadeService(UserService userService, TokenService tokenService,
+        ArticleService articleService, CommentService commentService) {
         this.userService = userService;
         this.tokenService = tokenService;
+        this.articleService = articleService;
+        this.commentService = commentService;
+    }
+
+    /**
+     * 최초 접속 시 default Token 을 발급함
+     *
+     * @return
+     */
+    public String getDefaultToken() {
+        return tokenService.createDefaultToken();
     }
 
     /**
@@ -27,8 +45,12 @@ public class AuthFacadeService {
     public String authToRegisteredUser(String accountId, String accountPassword)
         throws GlobalException {
         if (userService.isValidUserLogin(accountId, accountPassword)) {
+            int userId = userService.getUserIdByAccountId(accountId);
+            return tokenService.createUserToken(userId, true);
         }
-        throw new UserPasswordWrongException();
+        throw new GlobalException(
+            Map.of("accountId", accountId, "accountPassword", accountPassword),
+            ErrorTypeWithRequest.LOGIN_PASSWORD_WRONG);
     }
 
     /**
@@ -41,7 +63,14 @@ public class AuthFacadeService {
      */
     public String authToUnregisteredUserForArticle(int articleId, String nickname, String password)
         throws GlobalException {
-        throw new UserPasswordWrongException();
+        Article article = articleService.getArticleByArticleId(articleId);
+        User user = userService.getUserByUserId(article.getUserId());
+        if (user.getNickname().equals(nickname) && user.getPassword().equals(password)) {
+            return tokenService.createUserToken(user.getUserId(), false);
+        }
+        throw new GlobalException(
+            Map.of("articleId", articleId, "nickname", nickname, "password", password),
+            ErrorTypeWithRequest.ARTICLE_MODIFY_NO_AUTH);
     }
 
     /**
@@ -54,7 +83,29 @@ public class AuthFacadeService {
      */
     public String authToUnregisteredUserForComment(int commentId, String nickname, String password)
         throws GlobalException {
-        throw new UserPasswordWrongException();
+        Comment comment = commentService.getCommentBytCommentId(commentId);
+        User user = userService.getUserByUserId(comment.getUserId());
+        if (user.getNickname().equals(nickname) && user.getPassword().equals(password)) {
+            return tokenService.createUserToken(user.getUserId(), false);
+        }
+        throw new GlobalException(
+            Map.of("commentId", commentId, "nickname", nickname, "password", password),
+            ErrorTypeWithRequest.COMMENT_MODIFY_NO_AUTH);
+    }
+
+    /**
+     * 전달된 토큰을 통해서 회원인지 비회원인지 확인한다.
+     *
+     * @param token
+     * @return
+     */
+    public boolean isTokenOwnedByMember(String token) {
+        try {
+            Token foundToken = tokenService.getTokenByTokenValue(token);
+            return foundToken.isMember();
+        } catch (GlobalException e) {
+            return false;
+        }
     }
 
     /**
@@ -64,6 +115,33 @@ public class AuthFacadeService {
      * @return
      */
     public User getUserByToken(String token) {
-        return null;
+        int userId = tokenService.getUserIdByToken(token);
+        return userService.getUserByUserId(userId);
+    }
+
+    /**
+     * 주어진 token 으로 해당 article 에 대한 수정 권한이 있는지 확인한다.
+     *
+     * @param token
+     * @param articleId
+     * @return
+     */
+    public boolean authToArticleByToken(String token, int articleId) {
+        int userIdFromToken = tokenService.getUserIdByToken(token);
+        int userIdFromArticle = articleService.getArticleByArticleId(articleId).getUserId();
+        return userIdFromToken == userIdFromArticle;
+    }
+
+    /**
+     * 주어진 token 으로 해당 comment 에 대한 수정 권한이 있는지 확인한다.
+     *
+     * @param token
+     * @param commentId
+     * @return
+     */
+    public boolean authToCommentByToken(String token, int commentId) {
+        int userIdFromToken = tokenService.getUserIdByToken(token);
+        int userIdFromComment = commentService.getCommentBytCommentId(commentId).getUserId();
+        return userIdFromToken == userIdFromComment;
     }
 }

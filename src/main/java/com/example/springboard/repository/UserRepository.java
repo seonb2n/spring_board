@@ -23,6 +23,10 @@ public class UserRepository {
     }
 
     public Optional<RegisteredUser> findRegisteredUserByAccountId(String accountId) {
-        return Optional.of(registeredUserMapper.findUserByAccountId(accountId));
+        return Optional.ofNullable(registeredUserMapper.findUserByAccountId(accountId));
+    }
+
+    public Optional<User> findUserByUserId(int userId) {
+        return Optional.of(userMapper.findUserByUserId(userId));
     }
 }

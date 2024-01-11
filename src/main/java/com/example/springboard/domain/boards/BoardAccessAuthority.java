@@ -1,26 +1,35 @@
 package com.example.springboard.domain.boards;
 
-import com.example.springboard.util.enums.AccessLevel;
-
 public class BoardAccessAuthority {
 
     private int id;
-    private AccessLevel accesslevel;
+    private String accessLevel;
 
-    private BoardAccessAuthority(int id, AccessLevel accesslevel) {
-        this.id = id;
-        this.accesslevel = accesslevel;
+    public BoardAccessAuthority() {
     }
 
-    static BoardAccessAuthority of(int id, AccessLevel accesslevel) {
-        return new BoardAccessAuthority(id, accesslevel);
+    public BoardAccessAuthority(int id, String accessLevel) {
+        this.id = id;
+        this.accessLevel = accessLevel;
+    }
+
+    static BoardAccessAuthority of(int id, String accessLevel) {
+        return new BoardAccessAuthority(id, accessLevel);
     }
 
     public int getId() {
         return id;
     }
 
-    public AccessLevel getAccesslevel() {
-        return accesslevel;
+    public String getAccessLevel() {
+        return accessLevel;
+    }
+
+    public void setAccessLevel(String accessLevel) {
+        this.accessLevel = accessLevel;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

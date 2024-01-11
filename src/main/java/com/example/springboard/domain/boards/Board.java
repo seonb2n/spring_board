@@ -8,7 +8,10 @@ public class Board extends BaseEntity {
     private String title;
     private BoardAccessAuthority boardAccessAuthority;
 
-    private Board(int id, String title, BoardAccessAuthority boardAccessAuthority) {
+    public Board() {
+    }
+
+    public Board(int id, String title, BoardAccessAuthority boardAccessAuthority) {
         this.id = id;
         this.title = title;
         this.boardAccessAuthority = boardAccessAuthority;
@@ -28,5 +31,18 @@ public class Board extends BaseEntity {
 
     public BoardAccessAuthority getBoardAccessAuthority() {
         return boardAccessAuthority;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setBoardAccessAuthority(
+        BoardAccessAuthority boardAccessAuthority) {
+        this.boardAccessAuthority = boardAccessAuthority;
     }
 }

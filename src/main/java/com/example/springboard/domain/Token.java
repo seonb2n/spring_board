@@ -4,22 +4,32 @@ import java.time.LocalDateTime;
 
 public class Token {
 
-    Integer tokenId;
-    Integer userId;
-    String tokenValue;
-    LocalDateTime createdAt;
-    LocalDateTime expiredAt;
+    private Integer tokenId;
+    private Integer userId;
+    private String tokenValue;
+    private boolean isMember;
+    private boolean isDefault;
+    private LocalDateTime createdAt;
+    private LocalDateTime expiredAt;
 
-    private Token(Integer userId, String tokenValue, LocalDateTime createdAt,
+    private Token(Integer userId, String tokenValue, boolean isMember, boolean isDefault,
+        LocalDateTime createdAt,
         LocalDateTime expiredAt) {
         this.userId = userId;
         this.tokenValue = tokenValue;
+        this.isMember = isMember;
+        this.isDefault = isDefault;
         this.createdAt = createdAt;
         this.expiredAt = expiredAt;
     }
 
-    public static Token of(Integer userId, String tokenValue) {
-        return new Token(userId, tokenValue, LocalDateTime.now(),
+    public static Token createUserToken(Integer userId, boolean isMember, String tokenValue) {
+        return new Token(userId, tokenValue, isMember, false, LocalDateTime.now(),
+            LocalDateTime.now().plusDays(7));
+    }
+
+    public static Token createDefaultToken(String tokenValue) {
+        return new Token(0, tokenValue, false, true, LocalDateTime.now(),
             LocalDateTime.now().plusDays(7));
     }
 
@@ -37,5 +47,9 @@ public class Token {
 
     public LocalDateTime getExpiredAt() {
         return expiredAt;
+    }
+
+    public boolean isMember() {
+        return isMember;
     }
 }

@@ -7,10 +7,17 @@ public class CommonResponse<T> {
     private String message;
     private T data;
 
-    public CommonResponse(String message, T data) {
+    public CommonResponse() {
+    }
+
+    private CommonResponse(String message, T data) {
         this.responseTime = LocalDateTime.now();
         this.message = message;
         this.data = data;
+    }
+
+    public static <T> CommonResponse<T> of(String message, T data) {
+        return new CommonResponse<>(message, data);
     }
 
     public LocalDateTime getResponseTime() {
