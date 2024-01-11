@@ -17,9 +17,9 @@ public class TokenService {
         this.tokenRepository = tokenRepository;
     }
 
-    public String createToken(Integer userId) {
+    public String createToken(Integer userId, boolean isMember) {
         String tokenValue = UUID.randomUUID().toString();
-        Token createdToken = Token.of(userId, tokenValue);
+        Token createdToken = Token.of(userId, isMember, tokenValue);
         tokenRepository.saveToken(createdToken);
         return tokenValue;
     }

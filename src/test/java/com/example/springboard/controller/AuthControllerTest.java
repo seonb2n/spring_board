@@ -71,7 +71,6 @@ class AuthControllerTest {
         //given
         String userId = "user_id";
         String userPassword = "user_password";
-        String token = "token_1234";
         LoginRequest request = new LoginRequest(userId, userPassword);
         given(authFacadeService.authToRegisteredUser(userId, userPassword)).willThrow(
             UserNotFoundByAccountIdException.class);
@@ -117,7 +116,6 @@ class AuthControllerTest {
         String nickname = "abcd";
         String password = "1234";
         int targetId = 1;
-        String token = "token_1234";
         ValidAuthRequest request = new ValidAuthRequest(targetId, nickname, password);
         given(authFacadeService.authToUnregisteredUserForArticle(targetId, nickname,
             password)).willThrow(
@@ -164,7 +162,6 @@ class AuthControllerTest {
         String nickname = "abcd";
         String password = "1234";
         int targetId = 1;
-        String token = "token_1234";
         ValidAuthRequest request = new ValidAuthRequest(targetId, nickname, password);
         given(authFacadeService.authToUnregisteredUserForComment(targetId, nickname,
             password)).willThrow(
