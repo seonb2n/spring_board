@@ -14,4 +14,11 @@
     FROM users
     WHERE registered_user_id = #{registeredUserId}
   </select>
+
+  <select id="findUserByUserId" parameterMap="integer"
+    resultType="com.example.springboard.domain.users.User">
+    SELECT id, nickname, password, is_registered, registered_user_id
+    FROM users
+    WHERE registered_user_id = #{userId}
+  </select>
 </mapper>

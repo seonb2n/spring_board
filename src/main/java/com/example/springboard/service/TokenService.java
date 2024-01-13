@@ -17,6 +17,13 @@ public class TokenService {
         this.tokenRepository = tokenRepository;
     }
 
+    /**
+     * userId, member 여부로 토큰을 생성한다.
+     *
+     * @param userId
+     * @param isMember
+     * @return
+     */
     public String createToken(Integer userId, boolean isMember) {
         String tokenValue = UUID.randomUUID().toString();
         Token createdToken = Token.of(userId, isMember, tokenValue);
@@ -24,13 +31,18 @@ public class TokenService {
         return tokenValue;
     }
 
-    public boolean validateToken(String token) {
+    /**
+     * 토큰을 검증하고, 사용자 ID 를 가져온다.
+     *
+     * @param token
+     * @return
+     */
+    public int getUserIdByToken(String token) {
         Token foundToken = tokenRepository.findTokenByValue(token)
             .orElseThrow(() -> new TokenNotFoundException("유효한 토큰이 아닙니다."));
         if (foundToken.getExpiredAt().isBefore(LocalDateTime.now())) {
             throw new TokenExpiredException("유효 기간이 만료된 토큰입니다.");
         }
-        return true;
+        return foundToken.getUserId();
     }
-
 }

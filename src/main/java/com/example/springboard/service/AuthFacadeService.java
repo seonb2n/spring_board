@@ -27,6 +27,8 @@ public class AuthFacadeService {
     public String authToRegisteredUser(String accountId, String accountPassword)
         throws GlobalException {
         if (userService.isValidUserLogin(accountId, accountPassword)) {
+            int userId = userService.getUserIdByAccountId(accountId);
+            return tokenService.createToken(userId, true);
         }
         throw new UserPasswordWrongException();
     }
@@ -64,6 +66,7 @@ public class AuthFacadeService {
      * @return
      */
     public User getUserByToken(String token) {
-        return null;
+        int userId = tokenService.getUserIdByToken(token);
+        return userService.getUserByUserId(userId);
     }
 }
