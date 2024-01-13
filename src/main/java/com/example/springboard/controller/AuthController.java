@@ -6,6 +6,7 @@ import com.example.springboard.dto.response.CommonResponse;
 import com.example.springboard.dto.response.auth.LoginResponseDto;
 import com.example.springboard.dto.response.auth.ValidAuthResponseDto;
 import com.example.springboard.service.AuthFacadeService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,16 +22,37 @@ public class AuthController {
         this.authFacadeService = authFacadeService;
     }
 
+    /**
+     * 회원이 로그인 시도 시, 적합한 토큰을 발급한다.
+     *
+     * @param request
+     * @return
+     */
     @PostMapping("/login")
     CommonResponse<LoginResponseDto> login(@RequestBody LoginRequest request) {
-        return null;
+        String token = authFacadeService.authToRegisteredUser(request.getUserId(),
+            request.getPassword());
+        LoginResponseDto responseDto = new LoginResponseDto(token);
+        return CommonResponse.of(HttpStatus.ACCEPTED.getReasonPhrase(), responseDto);
     }
 
+    /**
+     * 비회원이 게시글에 대한 권한을 요청 시, 적합한 토큰을 발급한다.
+     * @param dto
+     * @return
+     */
     @PostMapping("/check/article")
     CommonResponse<ValidAuthResponseDto> checkArticleAuth(@RequestBody ValidAuthRequest dto) {
+        authFacadeService.authToUnregisteredUserForArticle(dto.getTargetId(), dto.getNickname(),
+            dto.getPassword());
         return null;
     }
 
+    /**
+     * 비회원이 댓글에 대한 권한을 요청 시, 적합한 토큰을 발급한다.
+     * @param dto
+     * @return
+     */
     @PostMapping("/check/comment")
     CommonResponse<ValidAuthResponseDto> checkCommentAuth(@RequestBody ValidAuthRequest dto) {
         return null;

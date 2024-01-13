@@ -2,6 +2,8 @@ package com.example.springboard.service;
 
 import com.example.springboard.common.exception.GlobalException;
 import com.example.springboard.common.exception.user.UserPasswordWrongException;
+import com.example.springboard.domain.articles.Article;
+import com.example.springboard.domain.articles.Comment;
 import com.example.springboard.domain.users.User;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +12,15 @@ public class AuthFacadeService {
 
     private final UserService userService;
     private final TokenService tokenService;
+    private final ArticleService articleService;
+    private final CommentService commentService;
 
-    public AuthFacadeService(UserService userService, TokenService tokenService) {
+    public AuthFacadeService(UserService userService, TokenService tokenService,
+        ArticleService articleService, CommentService commentService) {
         this.userService = userService;
         this.tokenService = tokenService;
+        this.articleService = articleService;
+        this.commentService = commentService;
     }
 
     /**
@@ -43,6 +50,11 @@ public class AuthFacadeService {
      */
     public String authToUnregisteredUserForArticle(int articleId, String nickname, String password)
         throws GlobalException {
+        Article article = articleService.getArticleByArticleId(articleId);
+        User user = userService.getUserByUserId(article.getUserId());
+        if (user.getNickname().equals(nickname) && user.getPassword().equals(password)) {
+            return tokenService.createToken(user.getUserId(), false);
+        }
         throw new UserPasswordWrongException();
     }
 
@@ -56,6 +68,11 @@ public class AuthFacadeService {
      */
     public String authToUnregisteredUserForComment(int commentId, String nickname, String password)
         throws GlobalException {
+        Comment comment = commentService.getCommentBytCommentId(commentId);
+        User user = userService.getUserByUserId(comment.getUserId());
+        if (user.getNickname().equals(nickname) && user.getPassword().equals(password)) {
+            return tokenService.createToken(user.getUserId(), false);
+        }
         throw new UserPasswordWrongException();
     }
 
