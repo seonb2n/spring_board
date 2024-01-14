@@ -17,16 +17,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(GlobalException.class)
     public ResponseEntity<ErrorResponse> handleException(GlobalException exception) {
-        switch (exception.getLogLevel()) {
-            case INFO -> logger.info("Exception: occurred : " + exception.getMessage(), exception);
-            case WARN -> logger.warn("Exception: occurred : " + exception.getMessage(),
-                exception.getParams(), exception);
-            case ERROR -> logger.error("Exception: occurred : " + exception.getMessage(),
-                exception.getParams(), exception);
-            default -> logger.info("Exception: occurred : " + exception.getMessage(),
-                exception.getParams(), exception);
-        }
-
         ErrorResponse errorResponse = new ErrorResponse(ErrorCode.BAD_REQUEST,
             exception.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);

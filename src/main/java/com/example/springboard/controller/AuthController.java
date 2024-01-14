@@ -32,7 +32,7 @@ public class AuthController {
     CommonResponse<LoginResponseDto> login(@RequestBody LoginRequest request) {
         String token = authFacadeService.authToRegisteredUser(request.getUserId(),
             request.getPassword());
-        LoginResponseDto responseDto = new LoginResponseDto(token);
+        LoginResponseDto responseDto = LoginResponseDto.of(token);
         return CommonResponse.of(HttpStatus.ACCEPTED.getReasonPhrase(), responseDto);
     }
 
@@ -43,9 +43,11 @@ public class AuthController {
      */
     @PostMapping("/check/article")
     CommonResponse<ValidAuthResponseDto> checkArticleAuth(@RequestBody ValidAuthRequest dto) {
-        authFacadeService.authToUnregisteredUserForArticle(dto.getTargetId(), dto.getNickname(),
+        String token = authFacadeService.authToUnregisteredUserForArticle(dto.getTargetId(),
+            dto.getNickname(),
             dto.getPassword());
-        return null;
+        ValidAuthResponseDto responseDto = ValidAuthResponseDto.of(token);
+        return CommonResponse.of(HttpStatus.OK.getReasonPhrase(), responseDto);
     }
 
     /**
@@ -55,6 +57,9 @@ public class AuthController {
      */
     @PostMapping("/check/comment")
     CommonResponse<ValidAuthResponseDto> checkCommentAuth(@RequestBody ValidAuthRequest dto) {
-        return null;
+        String token = authFacadeService.authToUnregisteredUserForComment(dto.getTargetId(),
+            dto.getNickname(), dto.getPassword());
+        ValidAuthResponseDto responseDto = ValidAuthResponseDto.of(token);
+        return CommonResponse.of(HttpStatus.OK.getReasonPhrase(), responseDto);
     }
 }

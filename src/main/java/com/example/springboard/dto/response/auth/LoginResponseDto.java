@@ -4,8 +4,12 @@ public class LoginResponseDto {
 
     String token;
 
-    public LoginResponseDto(String token) {
+    private LoginResponseDto(String token) {
         this.token = token;
+    }
+
+    public static LoginResponseDto of(String token) {
+        return new LoginResponseDto(token);
     }
 
     public String getToken() {

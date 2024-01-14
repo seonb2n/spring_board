@@ -9,16 +9,18 @@ public class GlobalException extends RuntimeException {
 
     public GlobalException() {
         super();
+        this.logLevel = LogLevel.ERROR;
     }
 
     public GlobalException(String message) {
         super(message);
-        this.logLevel = LogLevel.INFO;
+        this.logLevel = LogLevel.ERROR;
     }
 
     public GlobalException(String message, String params) {
         super(message);
         this.params = params;
+        this.logLevel = LogLevel.ERROR;
     }
 
     public GlobalException(String message, String params, LogLevel logLevel) {
@@ -30,11 +32,13 @@ public class GlobalException extends RuntimeException {
     public GlobalException(String message, Throwable cause, String params) {
         super(message, cause);
         this.params = params;
+        this.logLevel = LogLevel.ERROR;
     }
 
     public GlobalException(Throwable cause, String params) {
         super(cause);
         this.params = params;
+        this.logLevel = LogLevel.ERROR;
     }
 
     public String getParams() {

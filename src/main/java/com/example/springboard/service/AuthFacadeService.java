@@ -86,4 +86,30 @@ public class AuthFacadeService {
         int userId = tokenService.getUserIdByToken(token);
         return userService.getUserByUserId(userId);
     }
+
+    /**
+     * 주어진 token 으로 해당 article 에 대한 수정 권한이 있는지 확인한다.
+     *
+     * @param token
+     * @param articleId
+     * @return
+     */
+    public boolean authToArticleByToken(String token, int articleId) {
+        int userIdFromToken = tokenService.getUserIdByToken(token);
+        int userIdFromArticle = articleService.getArticleByArticleId(articleId).getUserId();
+        return userIdFromToken == userIdFromArticle;
+    }
+
+    /**
+     * 주어진 token 으로 해당 comment 에 대한 수정 권한이 있는지 확인한다.
+     *
+     * @param token
+     * @param commentId
+     * @return
+     */
+    public boolean authToCommentByToken(String token, int commentId) {
+        int userIdFromToken = tokenService.getUserIdByToken(token);
+        int userIdFromComment = commentService.getCommentBytCommentId(commentId).getUserId();
+        return userIdFromToken == userIdFromComment;
+    }
 }

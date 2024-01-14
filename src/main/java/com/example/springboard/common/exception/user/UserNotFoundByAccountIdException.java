@@ -8,6 +8,7 @@ import com.example.springboard.common.exception.GlobalException;
 public class UserNotFoundByAccountIdException extends GlobalException {
 
     public UserNotFoundByAccountIdException() {
+        super("UserNotFoundByAccountIdException");
     }
 
     public UserNotFoundByAccountIdException(String message, String params) {
