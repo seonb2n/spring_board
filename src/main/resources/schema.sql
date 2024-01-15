@@ -1,4 +1,4 @@
-DROP table if exists token;
+DROP table if exists tokens;
 DROP table if exists users;
 DROP table if exists registered_users;
 DROP table if exists board_access_authorities;
@@ -7,7 +7,7 @@ DROP table if exists articles;
 DROP table if exists comments;
 
 
-CREATE TABLE token
+CREATE TABLE tokens
 (
     token_id    INT AUTO_INCREMENT PRIMARY KEY,
     user_id     INT          NOT NULL COMMENT '회원 아이디',
@@ -61,7 +61,7 @@ CREATE TABLE articles
     article_comment_number INT          NOT NULL COMMENT '게시물 댓글 수',
     article_hit_number     INT          NOT NULL COMMENT '게시물 조회 수',
     created_at             TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at             TIMESTAMP    NOT NULL
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE comments
@@ -71,7 +71,7 @@ CREATE TABLE comments
     article_id INT          NOT NULL COMMENT '댓글 소속 게시물 아이디',
     content    varchar(255) NOT NULL COMMENT '댓글 내용',
     created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP    NOT NULL
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 INSERT INTO board.users
@@ -85,3 +85,27 @@ VALUES (1, 'test01', '1234', 1, CURRENT_TIMESTAMP);
 INSERT INTO board.registered_users
 (id, account_id, account_password, real_name, birth_date, mobile_no, created_at)
 VALUES (1, 'test01_id', 'test01_password', '김테스트', '001228', '010-1234-5678', CURRENT_TIMESTAMP);
+
+INSERT INTO board.boards
+    (id, title, access_authority_id)
+VALUES (0, 'funfun', 0);
+
+INSERT INTO board.board_access_authorities
+    (id, access_level)
+VALUES (0, 'ALL');
+
+INSERT INTO board.articles
+(user_id, board_id, title, content, article_comment_number, article_hit_number)
+VALUES (0, 0, 'written_no_member', 'I am not a member', 0, 0);
+
+INSERT INTO board.articles
+(user_id, board_id, title, content, article_comment_number, article_hit_number)
+VALUES (1, 0, 'written_member', 'I am a member', 0, 0);
+
+INSERT INTO board.comments
+    (user_id, article_id, content)
+VALUES (0, 0, 'I am not a member too');
+
+INSERT INTO board.comments
+    (user_id, article_id, content)
+VALUES (1, 0, 'but I am a member');
