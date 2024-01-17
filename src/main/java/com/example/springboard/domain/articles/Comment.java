@@ -9,7 +9,14 @@ public class Comment extends BaseEntity {
     private Integer articleId;
     private String content;
 
-    public Comment(Integer userId, Integer articleId, String content) {
+    public Comment(Integer id, Integer userId, Integer articleId, String content) {
+        this.id = id;
+        this.userId = userId;
+        this.articleId = articleId;
+        this.content = content;
+    }
+
+    private Comment(Integer userId, Integer articleId, String content) {
         this.userId = userId;
         this.articleId = articleId;
         this.content = content;

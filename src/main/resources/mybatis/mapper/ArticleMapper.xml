@@ -1,7 +1,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.springboard.mapper.ArticleMapper">
-  <select id="findArticleByArticleId" parameterType="integer"
+  <select id="findArticleByArticleId" parameterType="Integer"
     resultType="com.example.springboard.domain.articles.Article">
     SELECT id, user_id, board_id, title, content, article_comment_number, article_hit_number
     FROM articles

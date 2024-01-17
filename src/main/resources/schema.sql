@@ -57,7 +57,7 @@ CREATE TABLE articles
     user_id                INT          NOT NULL COMMENT '게시물 작성자 아이디',
     board_id               INT          NOT NULL COMMENT '게시물 소속 게시판 아이디',
     title                  varchar(255) NOT NULL COMMENT '게시물 제목',
-    content                text         NOT NULL COMMENT '게시물 내용',
+    content varchar(4095) COMMENT '게시물 내용',
     article_comment_number INT          NOT NULL COMMENT '게시물 댓글 수',
     article_hit_number     INT          NOT NULL COMMENT '게시물 조회 수',
     created_at             TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -96,16 +96,17 @@ VALUES (0, 'ALL');
 
 INSERT INTO board.articles
 (user_id, board_id, title, content, article_comment_number, article_hit_number)
-VALUES (0, 0, 'written_no_member', 'I am not a member', 0, 0);
+VALUES (1, 0, 'written_no_member', 'I am not a member', 0, 0);
 
 INSERT INTO board.articles
 (user_id, board_id, title, content, article_comment_number, article_hit_number)
-VALUES (1, 0, 'written_member', 'I am a member', 0, 0);
+VALUES (2, 0, 'written_member', 'I am a member', 0, 0);
 
 INSERT INTO board.comments
     (user_id, article_id, content)
-VALUES (0, 0, 'I am not a member too');
+VALUES (1, 0, 'I am not a member too');
 
 INSERT INTO board.comments
     (user_id, article_id, content)
-VALUES (1, 0, 'but I am a member');
+VALUES (2, 0, 'but I am a member');
+

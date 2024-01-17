@@ -12,6 +12,28 @@ public class Article extends BaseEntity {
     private Integer articleCommentNumber;
     private Integer articleHitNumber;
 
+    /**
+     * mybatis 에서 객체를 매핑하기 위해 사용하는 생성자
+     *
+     * @param id
+     * @param userId
+     * @param boardId
+     * @param title
+     * @param content
+     * @param articleCommentNumber
+     * @param articleHitNumber
+     */
+    public Article(Integer id, Integer userId, Integer boardId, String title, String content,
+        Integer articleCommentNumber, Integer articleHitNumber) {
+        this.id = id;
+        this.userId = userId;
+        this.boardId = boardId;
+        this.title = title;
+        this.content = content;
+        this.articleCommentNumber = articleCommentNumber;
+        this.articleHitNumber = articleHitNumber;
+    }
+
     private Article(Integer userId, Integer boardId, String title, String content,
         Integer articleCommentNumber, Integer articleHitNumber) {
         this.userId = userId;
