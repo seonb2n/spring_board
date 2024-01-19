@@ -89,19 +89,35 @@ VALUES (1, 'test01_id', 'test01_password', '김테스트', '001228', '010-1234-5
 
 INSERT INTO board.boards
     (id, title, access_authority_id)
-VALUES (0, 'funfun', 0);
+VALUES (1, 'all_board', 1);
+
+INSERT INTO board.boards
+    (id, title, access_authority_id)
+VALUES (2, 'member_board', 2);
+
+INSERT INTO board.boards
+    (id, title, access_authority_id)
+VALUES (3, 'not_member_board', 3);
 
 INSERT INTO board.board_access_authorities
     (id, access_level)
-VALUES (0, 'ALL');
+VALUES (1, 'ALL');
+
+INSERT INTO board.board_access_authorities
+    (id, access_level)
+VALUES (2, 'MEMBER_ONLY');
+
+INSERT INTO board.board_access_authorities
+    (id, access_level)
+VALUES (3, 'NOT_MEMBER_ONLY');
 
 INSERT INTO board.articles
 (user_id, board_id, title, content, article_comment_number, article_hit_number)
-VALUES (1, 0, 'written_no_member', 'I am not a member', 0, 0);
+VALUES (1, 1, 'written_no_member', 'I am not a member', 0, 0);
 
 INSERT INTO board.articles
 (user_id, board_id, title, content, article_comment_number, article_hit_number)
-VALUES (2, 0, 'written_member', 'I am a member', 0, 0);
+VALUES (2, 1, 'written_member', 'I am a member', 0, 0);
 
 INSERT INTO board.comments
     (user_id, article_id, content)
