@@ -44,6 +44,26 @@ class AuthControllerTest {
         }
     }
 
+    @DisplayName("[AuthController] 게시판 목록에 들어온 회원은 DefaultToken 을 발급받는다.")
+    @Test
+    public void givenCreateDefaultToken_whenRequestDefaultToken_thenReturnDefaultToken()
+        throws Exception {
+        //given
+        String token = "token_1234";
+
+        given(authFacadeService.getDefaultToken()).willReturn(token);
+
+        //when & then
+        ResultActions resultActions = mockMvc.perform(
+                MockMvcRequestBuilders
+                    .get("/v1/auth/default")
+            )
+            .andExpect(MockMvcResultMatchers.status().isOk());
+
+        resultActions.andExpect(
+            MockMvcResultMatchers.jsonPath("$.data.token", Matchers.notNullValue()));
+    }
+
     @DisplayName("[AuthController] 회원이 정확한 ID 와 Password 를 보낼 시, token 을 응답한다.")
     @Test
     public void givenCorrectIdAndPassword_whenRequestAuth_thenReturnToken() throws Exception {

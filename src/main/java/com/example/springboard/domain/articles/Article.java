@@ -23,7 +23,7 @@ public class Article extends BaseEntity {
      * @param articleCommentNumber
      * @param articleHitNumber
      */
-    public Article(Integer id, Integer userId, Integer boardId, String title, String content,
+    private Article(Integer id, Integer userId, Integer boardId, String title, String content,
         Integer articleCommentNumber, Integer articleHitNumber) {
         this.id = id;
         this.userId = userId;

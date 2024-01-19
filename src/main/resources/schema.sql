@@ -13,6 +13,7 @@ CREATE TABLE tokens
     user_id     INT          NOT NULL COMMENT '회원 아이디',
     token_value VARCHAR(255) NOT NULL COMMENT '토큰 값',
     is_member boolean NOT NULL COMMENT '토큰 소유자 회원 여부',
+    is_default boolean NOT NULL COMMENT '기본 토큰 여부',
     created_at  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '토큰 생성일자',
     expired_at  TIMESTAMP    NOT NULL COMMENT '토큰 만료일자'
 );

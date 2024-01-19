@@ -14,7 +14,7 @@ public class ArticleRepository {
         this.articleMapper = articleMapper;
     }
 
-    public Optional<Article> findArticleByArticleId(int articleId) {
-        return Optional.of(articleMapper.findArticleByArticleId(articleId));
+    public Optional<Article> findArticleByArticleId(Integer articleId) {
+        return Optional.ofNullable(articleMapper.findArticleByArticleId(articleId));
     }
 }

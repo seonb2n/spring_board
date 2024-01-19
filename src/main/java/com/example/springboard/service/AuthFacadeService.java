@@ -24,6 +24,15 @@ public class AuthFacadeService {
     }
 
     /**
+     * 최초 접속 시 default Token 을 발급함
+     *
+     * @return
+     */
+    public String getDefaultToken() {
+        return tokenService.createDefaultToken();
+    }
+
+    /**
      * 가입된 회원에 대해서, id, password 가 맞으면 토큰을 발급한다.
      *
      * @param accountId
@@ -35,7 +44,7 @@ public class AuthFacadeService {
         throws GlobalException {
         if (userService.isValidUserLogin(accountId, accountPassword)) {
             int userId = userService.getUserIdByAccountId(accountId);
-            return tokenService.createToken(userId, true);
+            return tokenService.createUserToken(userId, true);
         }
         throw new UserPasswordWrongException();
     }
@@ -53,7 +62,7 @@ public class AuthFacadeService {
         Article article = articleService.getArticleByArticleId(articleId);
         User user = userService.getUserByUserId(article.getUserId());
         if (user.getNickname().equals(nickname) && user.getPassword().equals(password)) {
-            return tokenService.createToken(user.getUserId(), false);
+            return tokenService.createUserToken(user.getUserId(), false);
         }
         throw new UserPasswordWrongException();
     }
@@ -71,7 +80,7 @@ public class AuthFacadeService {
         Comment comment = commentService.getCommentBytCommentId(commentId);
         User user = userService.getUserByUserId(comment.getUserId());
         if (user.getNickname().equals(nickname) && user.getPassword().equals(password)) {
-            return tokenService.createToken(user.getUserId(), false);
+            return tokenService.createUserToken(user.getUserId(), false);
         }
         throw new UserPasswordWrongException();
     }

@@ -17,6 +17,11 @@ public class TokenService {
         this.tokenRepository = tokenRepository;
     }
 
+    private String generateToken() {
+        return UUID.randomUUID().toString();
+    }
+
+
     /**
      * userId, member 여부로 토큰을 생성한다.
      *
@@ -24,9 +29,21 @@ public class TokenService {
      * @param isMember
      * @return
      */
-    public String createToken(Integer userId, boolean isMember) {
-        String tokenValue = UUID.randomUUID().toString();
-        Token createdToken = Token.of(userId, isMember, tokenValue);
+    public String createUserToken(Integer userId, boolean isMember) {
+        String tokenValue = generateToken();
+        Token createdToken = Token.createUserToken(userId, isMember, tokenValue);
+        tokenRepository.saveToken(createdToken);
+        return tokenValue;
+    }
+
+    /**
+     * 사이트에 접속한 사람들에게 발급하는 defaultToken 을 생성한다.
+     *
+     * @return
+     */
+    public String createDefaultToken() {
+        String tokenValue = generateToken();
+        Token createdToken = Token.createDefaultToken(tokenValue);
         tokenRepository.saveToken(createdToken);
         return tokenValue;
     }
