@@ -6,6 +6,7 @@ import com.example.springboard.domain.boards.Board;
 import com.example.springboard.dto.response.CommonResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,7 @@ class BoardControllerIntegrationTest {
 
         String responseContent = result.getResponse().getContentAsString();
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
         CommonResponse<List<Board>> response = objectMapper.readValue(responseContent,
             new TypeReference<CommonResponse<List<Board>>>() {
             });

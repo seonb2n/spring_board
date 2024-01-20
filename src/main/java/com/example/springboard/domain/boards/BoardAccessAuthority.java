@@ -5,6 +5,9 @@ public class BoardAccessAuthority {
     private int id;
     private String accessLevel;
 
+    public BoardAccessAuthority() {
+    }
+
     public BoardAccessAuthority(int id, String accessLevel) {
         this.id = id;
         this.accessLevel = accessLevel;
