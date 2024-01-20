@@ -1,7 +1,9 @@
 package com.example.springboard.service;
 
 import com.example.springboard.common.exception.GlobalException;
+import com.example.springboard.common.exception.token.TokenNotFoundException;
 import com.example.springboard.common.exception.user.UserPasswordWrongException;
+import com.example.springboard.domain.Token;
 import com.example.springboard.domain.articles.Article;
 import com.example.springboard.domain.articles.Comment;
 import com.example.springboard.domain.users.User;
@@ -83,6 +85,21 @@ public class AuthFacadeService {
             return tokenService.createUserToken(user.getUserId(), false);
         }
         throw new UserPasswordWrongException();
+    }
+
+    /**
+     * 전달된 토큰을 통해서 회원인지 비회원인지 확인한다.
+     *
+     * @param token
+     * @return
+     */
+    public boolean isTokenOwnedByMember(String token) {
+        try {
+            Token foundToken = tokenService.getTokenByTokenValue(token);
+            return foundToken.isMember();
+        } catch (TokenNotFoundException e) {
+            return false;
+        }
     }
 
     /**

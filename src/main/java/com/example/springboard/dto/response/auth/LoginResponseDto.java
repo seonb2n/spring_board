@@ -4,7 +4,12 @@ public class LoginResponseDto {
 
     String token;
 
-    private LoginResponseDto(String token) {
+    public LoginResponseDto() {
+    }
+
+    ;
+
+    public LoginResponseDto(String token) {
         this.token = token;
     }
 

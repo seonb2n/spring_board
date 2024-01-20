@@ -7,4 +7,5 @@ public interface BoardMapper {
 
     List<Board> findAll();
 
+    Board findById(Integer id);
 }

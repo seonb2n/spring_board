@@ -3,13 +3,13 @@
 <mapper namespace="com.example.springboard.mapper.TokenMapper">
   <insert id="insertToken" keyProperty="tokenId"
     parameterType="com.example.springboard.domain.Token" useGeneratedKeys="true">
-    INSERT INTO tokens (user_id, token_value, is_member, expired_at)
-    VALUES (#{userId}, #{tokenValue}, #{isMember}, #{expiredAt})
+    INSERT INTO tokens (user_id, token_value, is_member, is_default, expired_at)
+    VALUES (#{userId}, #{tokenValue}, #{isMember}, #{isDefault}, #{expiredAt})
   </insert>
 
   <select id="findTokenByValue" parameterType="string"
     resultType="com.example.springboard.domain.Token">
-    SELECT user_id, token_value, is_member, expired_at
+    SELECT user_id, token_value, is_member, is_default, created_at, expired_at
     FROM tokens
     WHERE token_value = #{tokenValue}
   </select>

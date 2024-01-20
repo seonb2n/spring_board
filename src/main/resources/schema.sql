@@ -119,6 +119,10 @@ INSERT INTO board.articles
 (user_id, board_id, title, content, article_comment_number, article_hit_number)
 VALUES (2, 1, 'written_member', 'I am a member', 0, 0);
 
+INSERT INTO board.articles
+(user_id, board_id, title, content, article_comment_number, article_hit_number)
+VALUES (2, 2, 'written_member', 'I am a member and this is member board', 0, 0);
+
 INSERT INTO board.comments
     (user_id, article_id, content)
 VALUES (1, 0, 'I am not a member too');
