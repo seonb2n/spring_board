@@ -1,5 +1,6 @@
 package com.example.springboard.controller;
 
+import com.example.springboard.common.annotations.CheckAuthByToken;
 import com.example.springboard.domain.articles.Article;
 import com.example.springboard.domain.boards.Board;
 import com.example.springboard.dto.response.CommonResponse;
@@ -44,10 +45,10 @@ public class BoardController {
      * @return
      */
     @GetMapping("/{board_id}/articles")
+    @CheckAuthByToken
     CommonResponse<List<Article>> getArticlesByBoardId(@PathVariable("board_id") Integer boardId,
         HttpServletRequest request) {
-        String token = request.getHeader("Authorization");
-        boolean isMember = authFacadeService.isTokenOwnedByMember(token);
+        Boolean isMember = (Boolean) request.getAttribute("isMember");
         List<Article> articleList = boardService.getArticleListByBoardId(boardId, isMember);
         return CommonResponse.of(HttpStatus.OK.getReasonPhrase(), articleList);
     }
