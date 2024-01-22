@@ -3,13 +3,13 @@
 <mapper namespace="com.example.springboard.mapper.ArticleMapper">
 
   <!--  <resultMap id="articleResultMap" type="com.example.springboard.domain.articles.Article">-->
-  <!--    <id property="id" column="id" />-->
-  <!--    <result property="userId" column="user_id" />-->
-  <!--    <result property="boardId" column="board_id" />-->
-  <!--    <result property="title" column="title" />-->
-  <!--    <result property="content" column="content" />-->
-  <!--    <result property="articleCommentNumber" column="article_comment_number" />-->
-  <!--    <result property="articleHitNumber" column="article_hit_number" />-->
+  <!--    <id property="id" column="id"/>-->
+  <!--    <result property="userId" column="user_id"/>-->
+  <!--    <result property="boardId" column="board_id"/>-->
+  <!--    <result property="title" column="title"/>-->
+  <!--    <result property="content" column="content"/>-->
+  <!--    <result property="articleCommentNumber" column="article_comment_number"/>-->
+  <!--    <result property="articleHitNumber" column="article_hit_number"/>-->
   <!--  </resultMap>-->
 
   <select id="findArticleByArticleId" parameterType="Integer"
@@ -26,4 +26,13 @@
     WHERE board_id = #{boardId}
   </select>
 
+  <insert id="createArticle"
+    keyProperty="id"
+    parameterType="com.example.springboard.domain.articles.Article"
+    useGeneratedKeys="true">
+    INSERT INTO articles (user_id, board_id, title, content, article_comment_number,
+                          article_hit_number)
+    VALUES (#{userId}, #{boardId}, #{title}, #{content}, #{articleCommentNumber},
+            #{articleHitNumber})
+  </insert>
 </mapper>

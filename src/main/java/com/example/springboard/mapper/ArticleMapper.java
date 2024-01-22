@@ -8,4 +8,6 @@ public interface ArticleMapper {
     Article findArticleByArticleId(Integer articleId);
 
     List<Article> findArticleByBoardId(Integer boardId);
+
+    int createArticle(Article article);
 }

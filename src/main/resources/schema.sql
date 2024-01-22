@@ -131,3 +131,6 @@ INSERT INTO board.comments
     (user_id, article_id, content)
 VALUES (2, 0, 'but I am a member');
 
+INSERT into board.tokens
+(token_id, user_id, token_value, is_member, is_default, created_at, expired_at)
+values (1, 1, '54fa233d-6331-44dd-9a87-ce06db48945d', 1, 0, now(), DATE_ADD(NOW(), INTERVAL 3 DAY));

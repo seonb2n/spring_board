@@ -20,22 +20,60 @@ public class BoardService {
         this.articleRepository = articleRepository;
     }
 
+    /**
+     * 현재 사용자의 권한으로 게시판에 대한 접근이 가능한지 검증
+     *
+     * @param board
+     * @param isMember
+     * @return
+     */
+    public boolean checkCanReadBoardByAuth(Board board, boolean isMember) {
+        // 회원 전용 게시판이고 회원인 경우
+        if (board.getBoardAccessAuthority().getAccessLevel()
+            .equals(BoardAccessLevel.MEMBER_ONLY.getType()) && isMember) {
+            return true;
+            // 비회원 전용 게시판이고 비회원인 경우
+        } else if (board.getBoardAccessAuthority().getAccessLevel()
+            .equals(BoardAccessLevel.NOT_MEMBER_ONLY.getType()) && !isMember) {
+            return true;
+            // 전체 공게 게시판인 경우
+        } else if (board.getBoardAccessAuthority().getAccessLevel()
+            .equals(BoardAccessLevel.ALL_BOARD.getType())) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 게시판 목록 조회
+     *
+     * @return
+     */
     public List<Board> getBoardList() {
         return boardRepository.findAll();
     }
 
+    /**
+     * boardId 로 게시판 조회
+     *
+     * @param boardId
+     * @return
+     */
+    public Board getBoardByBoardId(int boardId) {
+        return boardRepository.findById(boardId).orElseThrow(
+            () -> new FindBoardFailException("해당 ID 를 가진 게시판은 없습니다.", String.valueOf(boardId)));
+    }
+
+    /**
+     * 게시판 ID 와 멤버 여부로 게시판 내 게시물 목록 조회
+     *
+     * @param boardId
+     * @param isMember
+     * @return
+     */
     public List<Article> getArticleListByBoardId(int boardId, boolean isMember) {
-        Board board = boardRepository.findById(boardId)
-            .orElseThrow(
-                () -> new FindBoardFailException("해당 ID 를 가진 게시판은 없습니다.", String.valueOf(boardId)));
-        if (board.getBoardAccessAuthority().getAccessLevel()
-            .equals(BoardAccessLevel.ALL_BOARD.getType())) {
-            return articleRepository.findArticlesByBoardId(boardId);
-        } else if (board.getBoardAccessAuthority().getAccessLevel()
-            .equals(BoardAccessLevel.MEMBER_ONLY.getType()) && isMember) {
-            return articleRepository.findArticlesByBoardId(boardId);
-        } else if (board.getBoardAccessAuthority().getAccessLevel()
-            .equals(BoardAccessLevel.NOT_MEMBER_ONLY.getType()) && !isMember) {
+        Board board = getBoardByBoardId(boardId);
+        if (checkCanReadBoardByAuth(board, isMember)) {
             return articleRepository.findArticlesByBoardId(boardId);
         }
         return List.of();

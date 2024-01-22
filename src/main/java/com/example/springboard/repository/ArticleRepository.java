@@ -22,4 +22,8 @@ public class ArticleRepository {
     public List<Article> findArticlesByBoardId(Integer boardId) {
         return articleMapper.findArticleByBoardId(boardId);
     }
+
+    public int createArticle(Article article) {
+        return articleMapper.createArticle(article);
+    }
 }

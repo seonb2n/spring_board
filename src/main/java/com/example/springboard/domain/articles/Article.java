@@ -78,4 +78,8 @@ public class Article extends BaseEntity {
     public Integer getArticleHitNumber() {
         return articleHitNumber;
     }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }
