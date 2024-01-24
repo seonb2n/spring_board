@@ -1,6 +1,7 @@
 package com.example.springboard.common.interceptor;
 
 import com.example.springboard.common.annotations.CheckAuthByToken;
+import com.example.springboard.common.exception.user.UserNotFoundByUserIdException;
 import com.example.springboard.service.AuthFacadeService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -31,10 +32,13 @@ public class CheckAuthInterceptor implements HandlerInterceptor {
                     return false;
                 }
                 boolean isMember = authFacadeService.isTokenOwnedByMember(token);
-                int userId = authFacadeService.getUserByToken(token).getUserId();
-
                 request.setAttribute("isMember", isMember);
-                request.setAttribute("userId", userId);
+                try {
+                    int userId = authFacadeService.getUserByToken(token).getRegisteredUserId();
+                    request.setAttribute("userId", userId);
+                } catch (UserNotFoundByUserIdException e) {
+                    request.setAttribute("userId", null);
+                }
             }
         }
         return true;

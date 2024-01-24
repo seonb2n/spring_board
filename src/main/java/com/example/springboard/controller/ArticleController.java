@@ -8,6 +8,7 @@ import com.example.springboard.dto.response.CommonResponse;
 import com.example.springboard.service.ArticleService;
 import com.example.springboard.service.BoardService;
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.Optional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,11 +42,21 @@ public class ArticleController {
         HttpServletRequest request
     ) {
         Boolean isMember = (Boolean) request.getAttribute("isMember");
-        int userId = (Integer) request.getAttribute("userId");
+        Optional<Integer> userId = Optional.ofNullable((Integer) request.getAttribute("userId"));
         Board board = boardService.getBoardByBoardId(boardId);
         if (boardService.checkCanReadBoardByAuth(board, isMember)) {
-            Article article = articleService.createArticle(articleCreateRequest, userId, boardId);
-            return CommonResponse.of("Article Created", article);
+            // 회원인 경우
+            if (userId.isPresent()) {
+                Article article = articleService.createArticleByMember(articleCreateRequest,
+                    userId.get(), boardId);
+                return CommonResponse.of("Article Created", article);
+            }
+            // 비회원인 경우
+            else {
+                Article article = articleService.createArticleByNoMember(articleCreateRequest,
+                    boardId);
+                return CommonResponse.of("Article Created", article);
+            }
         }
         return CommonResponse.of("Article Created Fail", null);
     }

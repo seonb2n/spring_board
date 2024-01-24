@@ -1,4 +1,4 @@
-package com.example.springboard.controller;
+package com.example.springboard.controller.integration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -26,7 +26,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-@ActiveProfiles("local")
+@ActiveProfiles("test")
 @SpringBootTest
 @AutoConfigureMockMvc
 class BoardControllerIntegrationTest {

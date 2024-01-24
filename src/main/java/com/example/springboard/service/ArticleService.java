@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
+    private final UserService userService;
 
-    public ArticleService(ArticleRepository articleRepository) {
+    public ArticleService(ArticleRepository articleRepository, UserService userService) {
         this.articleRepository = articleRepository;
+        this.userService = userService;
     }
 
     /**
@@ -27,17 +29,30 @@ public class ArticleService {
     }
 
     /**
-     * 게시물 생성
+     * 회원인 경우, 게시물 생성
      *
      * @param articleCreateRequest
      * @return
      */
-    public Article createArticle(ArticleCreateRequest articleCreateRequest, int userId,
+    public Article createArticleByMember(ArticleCreateRequest articleCreateRequest, int userId,
         int boardId) {
         Article article = Article.of(userId, boardId, articleCreateRequest.getTitle(),
             articleCreateRequest.getContent());
         int articleId = articleRepository.createArticle(article);
         article.setId(articleId);
         return article;
+    }
+
+    /**
+     * 비회원인 경우, 게시물 생성
+     *
+     * @param articleCreateRequest
+     * @param boardId
+     * @return
+     */
+    public Article createArticleByNoMember(ArticleCreateRequest articleCreateRequest, int boardId) {
+        int userId = userService.createUser(articleCreateRequest.getNickName(),
+            articleCreateRequest.getPassword());
+        return createArticleByMember(articleCreateRequest, userId, boardId);
     }
 }

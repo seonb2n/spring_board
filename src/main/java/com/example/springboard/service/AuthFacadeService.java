@@ -64,7 +64,7 @@ public class AuthFacadeService {
         Article article = articleService.getArticleByArticleId(articleId);
         User user = userService.getUserByUserId(article.getUserId());
         if (user.getNickname().equals(nickname) && user.getPassword().equals(password)) {
-            return tokenService.createUserToken(user.getUserId(), false);
+            return tokenService.createUserToken(user.getRegisteredUserId(), false);
         }
         throw new UserPasswordWrongException();
     }
@@ -82,7 +82,7 @@ public class AuthFacadeService {
         Comment comment = commentService.getCommentBytCommentId(commentId);
         User user = userService.getUserByUserId(comment.getUserId());
         if (user.getNickname().equals(nickname) && user.getPassword().equals(password)) {
-            return tokenService.createUserToken(user.getUserId(), false);
+            return tokenService.createUserToken(user.getRegisteredUserId(), false);
         }
         throw new UserPasswordWrongException();
     }

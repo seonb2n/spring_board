@@ -21,4 +21,13 @@
     FROM users
     WHERE registered_user_id = #{userId}
   </select>
+
+  <insert id="createUser"
+    keyProperty="id"
+    parameterType="com.example.springboard.domain.users.User"
+    useGeneratedKeys="true"
+  >
+    INSERT INTO users (nickname, is_registered, password)
+    VALUES (#{nickname}, #{isRegistered}, #{password})
+  </insert>
 </mapper>

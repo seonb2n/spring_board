@@ -10,7 +10,7 @@ DROP table if exists comments;
 CREATE TABLE tokens
 (
     token_id    INT AUTO_INCREMENT PRIMARY KEY,
-    user_id     INT          NOT NULL COMMENT '회원 아이디',
+    user_id INT COMMENT '회원 아이디',
     token_value VARCHAR(255) NOT NULL COMMENT '토큰 값',
     is_member boolean NOT NULL COMMENT '토큰 소유자 회원 여부',
     is_default boolean NOT NULL COMMENT '기본 토큰 여부',
@@ -134,3 +134,7 @@ VALUES (2, 0, 'but I am a member');
 INSERT into board.tokens
 (token_id, user_id, token_value, is_member, is_default, created_at, expired_at)
 values (1, 1, '54fa233d-6331-44dd-9a87-ce06db48945d', 1, 0, now(), DATE_ADD(NOW(), INTERVAL 3 DAY));
+
+INSERT into board.tokens
+(token_id, user_id, token_value, is_member, is_default, created_at, expired_at)
+values (2, 2, '54fa233d-6331-44dd-9a87-ce06db48945c', 0, 1, now(), DATE_ADD(NOW(), INTERVAL 3 DAY));

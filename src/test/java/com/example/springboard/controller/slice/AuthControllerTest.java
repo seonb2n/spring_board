@@ -1,9 +1,10 @@
-package com.example.springboard.controller;
+package com.example.springboard.controller.slice;
 
 import static org.mockito.BDDMockito.given;
 
 import com.example.springboard.common.exception.user.UserNotFoundByAccountIdException;
 import com.example.springboard.common.exception.user.UserNotFoundByNicknameException;
+import com.example.springboard.controller.AuthController;
 import com.example.springboard.dto.request.auth.LoginRequest;
 import com.example.springboard.dto.request.auth.ValidAuthRequest;
 import com.example.springboard.service.AuthFacadeService;

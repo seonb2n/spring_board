@@ -51,4 +51,9 @@ public class UserService {
         return userRepository.findUserByUserId(userId).orElseThrow(
             UserNotFoundByUserIdException::new);
     }
+
+    public int createUser(String nickName, String password) {
+        User user = User.of(nickName, password, false);
+        return userRepository.createUser(user);
+    }
 }

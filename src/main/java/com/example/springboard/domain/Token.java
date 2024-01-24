@@ -28,8 +28,12 @@ public class Token {
             LocalDateTime.now().plusDays(7));
     }
 
+    /**
+     * @param tokenValue
+     * @return
+     */
     public static Token createDefaultToken(String tokenValue) {
-        return new Token(0, tokenValue, false, true, LocalDateTime.now(),
+        return new Token(null, tokenValue, false, true, LocalDateTime.now(),
             LocalDateTime.now().plusDays(7));
     }
 
