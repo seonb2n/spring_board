@@ -1,5 +1,6 @@
 package com.example.springboard.service;
 
+import com.example.springboard.common.exception.auth.AuthErrorException;
 import com.example.springboard.common.exception.board.FindBoardFailException;
 import com.example.springboard.domain.articles.Article;
 import com.example.springboard.domain.boards.Board;
@@ -75,7 +76,8 @@ public class BoardService {
         Board board = getBoardByBoardId(boardId);
         if (checkCanReadBoardByAuth(board, isMember)) {
             return articleRepository.findArticlesByBoardId(boardId);
+        } else {
+            throw new AuthErrorException("해당 게시판을 호출할 권한이 없습니다.", String.valueOf(boardId));
         }
-        return List.of();
     }
 }
