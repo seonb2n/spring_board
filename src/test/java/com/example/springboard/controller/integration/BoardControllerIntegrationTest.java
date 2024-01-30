@@ -51,7 +51,7 @@ class BoardControllerIntegrationTest {
     void testGetBoardList() throws Exception {
 
         // when
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/v1/boards/list")
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/v1/boards/list/1")
                 .contentType(MediaType.APPLICATION_JSON))
             .andReturn();
 

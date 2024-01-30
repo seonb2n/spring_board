@@ -50,8 +50,8 @@ public class BoardService {
      *
      * @return
      */
-    public List<Board> getBoardList() {
-        return boardRepository.findAll();
+    public List<Board> getBoardList(int page) {
+        return boardRepository.findAllWithPaging(page, 20);
     }
 
     /**

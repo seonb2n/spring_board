@@ -15,8 +15,12 @@ public class BoardRepository {
         this.boardMapper = boardMapper;
     }
 
-    public List<Board> findAll() {
-        return boardMapper.findAll();
+    public List<Board> findAllWithPaging(int page, int pageSize) {
+        if (page < 1) {
+            page = 1;
+        }
+        int offset = (page - 1) * pageSize;
+        return boardMapper.findAllWithPaging(offset, pageSize);
     }
 
     public Optional<Board> findById(Integer id) {

@@ -14,13 +14,15 @@
     <collection property="boardAccessAuthority" resultMap="boardAccessAuthorityResultMap"/>
   </resultMap>
 
-  <select id="findAll" resultMap="boardResultMap">
+  <select id="findAllWithPaging" resultMap="boardResultMap">
     SELECT a.id,
            a.title,
            b.id as board_access_authority_id,
            b.access_level
     FROM boards a
            INNER JOIN board_access_authorities b ON a.access_authority_id = b.id
+      LIMIT #{limit}
+    OFFSET #{offset}
   </select>
 
   <select id="findById" parameterType="Integer" resultMap="boardResultMap">

@@ -32,9 +32,9 @@ public class BoardController {
      *
      * @return
      */
-    @PostMapping("/list")
-    CommonResponse<List<Board>> getBoardList() {
-        List<Board> boardList = boardService.getBoardList();
+    @PostMapping("/list/{page}")
+    CommonResponse<List<Board>> getBoardList(@PathVariable int page) {
+        List<Board> boardList = boardService.getBoardList(page);
         return CommonResponse.of(HttpStatus.OK.getReasonPhrase(), boardList);
     }
 
