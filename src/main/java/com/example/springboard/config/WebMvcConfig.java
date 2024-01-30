@@ -15,9 +15,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
         this.authFacadeService = authFacadeService;
     }
 
+    /**
+     * auth 관련 요청(토큰 발급) 및 회원 가입 관련 요청에 대해서는 인증을 처리하지 않음
+     *
+     * @param registry
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new CheckAuthInterceptor(authFacadeService));
+        registry.addInterceptor(new CheckAuthInterceptor(authFacadeService))
+            .excludePathPatterns("/auth/**", "/users/join**");
     }
 
 }
