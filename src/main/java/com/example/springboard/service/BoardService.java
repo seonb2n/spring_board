@@ -1,13 +1,14 @@
 package com.example.springboard.service;
 
-import com.example.springboard.common.exception.auth.AuthErrorException;
-import com.example.springboard.common.exception.board.FindBoardFailException;
+import com.example.springboard.common.exception.ErrorTypeWithRequest;
+import com.example.springboard.common.exception.GlobalException;
 import com.example.springboard.domain.articles.Article;
 import com.example.springboard.domain.boards.Board;
 import com.example.springboard.repository.ArticleRepository;
 import com.example.springboard.repository.BoardRepository;
 import com.example.springboard.util.enums.BoardAccessLevel;
 import java.util.List;
+import java.util.Map;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -62,7 +63,8 @@ public class BoardService {
      */
     public Board getBoardByBoardId(int boardId) {
         return boardRepository.findById(boardId).orElseThrow(
-            () -> new FindBoardFailException("해당 ID 를 가진 게시판은 없습니다.", String.valueOf(boardId)));
+            () -> new GlobalException(Map.of("boardId", boardId),
+                ErrorTypeWithRequest.BOARD_NOT_FOUND_BY_ID));
     }
 
     /**
@@ -77,7 +79,8 @@ public class BoardService {
         if (checkCanReadBoardByAuth(board, isMember)) {
             return articleRepository.findArticlesByBoardId(boardId);
         } else {
-            throw new AuthErrorException("해당 게시판을 호출할 권한이 없습니다.", String.valueOf(boardId));
+            throw new GlobalException(Map.of("boardId", boardId, "isMember", isMember),
+                ErrorTypeWithRequest.ARTICLE_LIST_VIEW_NO_AUTH);
         }
     }
 }

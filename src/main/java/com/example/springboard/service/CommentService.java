@@ -1,8 +1,10 @@
 package com.example.springboard.service;
 
-import com.example.springboard.common.exception.comment.CommentNotFoundException;
+import com.example.springboard.common.exception.ErrorTypeWithRequest;
+import com.example.springboard.common.exception.GlobalException;
 import com.example.springboard.domain.articles.Comment;
 import com.example.springboard.repository.CommentRepository;
+import java.util.Map;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,7 +17,9 @@ public class CommentService {
     }
 
     public Comment getCommentBytCommentId(int commentId) {
-        return commentRepository.findCommentByCommentId(commentId).orElseThrow(
-            CommentNotFoundException::new);
+        return commentRepository.findCommentByCommentId(commentId)
+            .orElseThrow(() -> new GlobalException(
+                Map.of("commentId", commentId),
+                ErrorTypeWithRequest.COMMENT_NOT_FOUND_BY_ID));
     }
 }

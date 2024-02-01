@@ -1,7 +1,7 @@
 package com.example.springboard.common.interceptor;
 
 import com.example.springboard.common.annotations.CheckAuthByToken;
-import com.example.springboard.common.exception.user.UserNotFoundByUserIdException;
+import com.example.springboard.common.exception.GlobalException;
 import com.example.springboard.service.AuthFacadeService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -36,7 +36,7 @@ public class CheckAuthInterceptor implements HandlerInterceptor {
                 try {
                     int userId = authFacadeService.getUserByToken(token).getRegisteredUserId();
                     request.setAttribute("userId", userId);
-                } catch (UserNotFoundByUserIdException e) {
+                } catch (GlobalException e) {
                     request.setAttribute("userId", null);
                 }
             }

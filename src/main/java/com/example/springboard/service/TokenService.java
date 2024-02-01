@@ -1,10 +1,11 @@
 package com.example.springboard.service;
 
-import com.example.springboard.common.exception.token.TokenExpiredException;
-import com.example.springboard.common.exception.token.TokenNotFoundException;
+import com.example.springboard.common.exception.ErrorTypeWithRequest;
+import com.example.springboard.common.exception.GlobalException;
 import com.example.springboard.domain.Token;
 import com.example.springboard.repository.TokenRepository;
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.UUID;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,8 @@ public class TokenService {
      */
     public Token getTokenByTokenValue(String token) {
         return tokenRepository.findTokenByValue(token)
-            .orElseThrow(() -> new TokenNotFoundException("유효한 토큰이 아닙니다."));
+            .orElseThrow(() -> new GlobalException(Map.of("token", token),
+                ErrorTypeWithRequest.TOKEN_NOT_FOUND_BY_VALUE));
     }
 
     /**
@@ -68,7 +70,8 @@ public class TokenService {
     public int getUserIdByToken(String token) {
         Token foundToken = getTokenByTokenValue(token);
         if (foundToken.getExpiredAt().isBefore(LocalDateTime.now())) {
-            throw new TokenExpiredException("유효 기간이 만료된 토큰입니다.");
+            throw new GlobalException(Map.of("token", token),
+                ErrorTypeWithRequest.TOKEN_NOT_FOUND_BY_VALUE);
         }
         return foundToken.getUserId();
     }

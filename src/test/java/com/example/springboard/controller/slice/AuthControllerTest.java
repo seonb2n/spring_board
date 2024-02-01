@@ -2,8 +2,7 @@ package com.example.springboard.controller.slice;
 
 import static org.mockito.BDDMockito.given;
 
-import com.example.springboard.common.exception.user.UserNotFoundByAccountIdException;
-import com.example.springboard.common.exception.user.UserNotFoundByNicknameException;
+import com.example.springboard.common.exception.GlobalException;
 import com.example.springboard.controller.AuthController;
 import com.example.springboard.dto.request.auth.LoginRequest;
 import com.example.springboard.dto.request.auth.ValidAuthRequest;
@@ -95,7 +94,7 @@ class AuthControllerTest {
         String userPassword = "user_password";
         LoginRequest request = new LoginRequest(userId, userPassword);
         given(authFacadeService.authToRegisteredUser(userId, userPassword)).willThrow(
-            new UserNotFoundByAccountIdException());
+            GlobalException.class);
 
         //when & then
         mockMvc.perform(
@@ -142,7 +141,7 @@ class AuthControllerTest {
         ValidAuthRequest request = new ValidAuthRequest(targetId, nickname, password);
         given(authFacadeService.authToUnregisteredUserForArticle(targetId, nickname,
             password)).willThrow(
-            UserNotFoundByNicknameException.class);
+            GlobalException.class);
 
         //when & then
         mockMvc.perform(
@@ -189,7 +188,7 @@ class AuthControllerTest {
         ValidAuthRequest request = new ValidAuthRequest(targetId, nickname, password);
         given(authFacadeService.authToUnregisteredUserForComment(targetId, nickname,
             password)).willThrow(
-            UserNotFoundByNicknameException.class);
+            GlobalException.class);
 
         //when & then
         mockMvc.perform(

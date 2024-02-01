@@ -1,9 +1,11 @@
 package com.example.springboard.service;
 
-import com.example.springboard.common.exception.article.ArticleNotFoundException;
+import com.example.springboard.common.exception.ErrorTypeWithRequest;
+import com.example.springboard.common.exception.GlobalException;
 import com.example.springboard.domain.articles.Article;
 import com.example.springboard.dto.request.article.ArticleCreateRequest;
 import com.example.springboard.repository.ArticleRepository;
+import java.util.Map;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,8 +26,9 @@ public class ArticleService {
      * @return
      */
     public Article getArticleByArticleId(int articleId) {
-        return articleRepository.findArticleByArticleId(articleId).orElseThrow(
-            ArticleNotFoundException::new);
+        return articleRepository.findArticleByArticleId(articleId).orElseThrow(() ->
+            new GlobalException(Map.of("articleId", articleId),
+                ErrorTypeWithRequest.ARTICLE_NOT_FOUND_BY_ID));
     }
 
     /**

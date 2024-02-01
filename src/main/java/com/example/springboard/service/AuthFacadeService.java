@@ -1,12 +1,12 @@
 package com.example.springboard.service;
 
+import com.example.springboard.common.exception.ErrorTypeWithRequest;
 import com.example.springboard.common.exception.GlobalException;
-import com.example.springboard.common.exception.token.TokenNotFoundException;
-import com.example.springboard.common.exception.user.UserPasswordWrongException;
 import com.example.springboard.domain.Token;
 import com.example.springboard.domain.articles.Article;
 import com.example.springboard.domain.articles.Comment;
 import com.example.springboard.domain.users.User;
+import java.util.Map;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -48,7 +48,9 @@ public class AuthFacadeService {
             int userId = userService.getUserIdByAccountId(accountId);
             return tokenService.createUserToken(userId, true);
         }
-        throw new UserPasswordWrongException();
+        throw new GlobalException(
+            Map.of("accountId", accountId, "accountPassword", accountPassword),
+            ErrorTypeWithRequest.LOGIN_PASSWORD_WRONG);
     }
 
     /**
@@ -66,7 +68,9 @@ public class AuthFacadeService {
         if (user.getNickname().equals(nickname) && user.getPassword().equals(password)) {
             return tokenService.createUserToken(user.getRegisteredUserId(), false);
         }
-        throw new UserPasswordWrongException();
+        throw new GlobalException(
+            Map.of("articleId", articleId, "nickname", nickname, "password", password),
+            ErrorTypeWithRequest.ARTICLE_MODIFY_NO_AUTH);
     }
 
     /**
@@ -84,7 +88,9 @@ public class AuthFacadeService {
         if (user.getNickname().equals(nickname) && user.getPassword().equals(password)) {
             return tokenService.createUserToken(user.getRegisteredUserId(), false);
         }
-        throw new UserPasswordWrongException();
+        throw new GlobalException(
+            Map.of("commentId", commentId, "nickname", nickname, "password", password),
+            ErrorTypeWithRequest.COMMENT_MODIFY_NO_AUTH);
     }
 
     /**
@@ -97,7 +103,7 @@ public class AuthFacadeService {
         try {
             Token foundToken = tokenService.getTokenByTokenValue(token);
             return foundToken.isMember();
-        } catch (TokenNotFoundException e) {
+        } catch (GlobalException e) {
             return false;
         }
     }
