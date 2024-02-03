@@ -9,4 +9,6 @@ public interface UserMapper {
     User findUserByRegisteredUserId(Integer registeredUserId);
 
     User findUserByUserId(Integer userId);
+
+    int createUser(User user);
 }

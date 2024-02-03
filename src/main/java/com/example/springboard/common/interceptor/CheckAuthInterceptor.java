@@ -16,6 +16,15 @@ public class CheckAuthInterceptor implements HandlerInterceptor {
         this.authFacadeService = authFacadeService;
     }
 
+    /**
+     * 요청으로부터 검증을 해서, 회원 여부(isMember), 사용자 id(userId) 를 header 에 추가해준다.
+     *
+     * @param request
+     * @param response
+     * @param handler
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
         Object handler) throws Exception {
@@ -34,7 +43,7 @@ public class CheckAuthInterceptor implements HandlerInterceptor {
                 boolean isMember = authFacadeService.isTokenOwnedByMember(token);
                 request.setAttribute("isMember", isMember);
                 try {
-                    int userId = authFacadeService.getUserByToken(token).getRegisteredUserId();
+                    int userId = authFacadeService.getUserByToken(token).getId();
                     request.setAttribute("userId", userId);
                 } catch (GlobalException e) {
                     request.setAttribute("userId", null);

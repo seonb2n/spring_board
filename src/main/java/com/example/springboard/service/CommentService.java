@@ -16,6 +16,12 @@ public class CommentService {
         this.commentRepository = commentRepository;
     }
 
+    /**
+     * 댓글 id 로 댓글을 조회한다.
+     *
+     * @param commentId
+     * @return
+     */
     public Comment getCommentBytCommentId(int commentId) {
         return commentRepository.findCommentByCommentId(commentId)
             .orElseThrow(() -> new GlobalException(

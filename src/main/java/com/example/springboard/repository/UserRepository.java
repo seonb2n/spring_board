@@ -27,6 +27,10 @@ public class UserRepository {
     }
 
     public Optional<User> findUserByUserId(int userId) {
-        return Optional.of(userMapper.findUserByUserId(userId));
+        return Optional.ofNullable(userMapper.findUserByUserId(userId));
+    }
+
+    public int createUser(User user) {
+        return userMapper.createUser(user);
     }
 }

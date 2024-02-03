@@ -15,7 +15,7 @@ public class TokenRepository {
     }
 
     public Optional<Token> findTokenByValue(String token) {
-        return Optional.of(tokenMapper.findTokenByValue(token));
+        return Optional.ofNullable(tokenMapper.findTokenByValue(token));
     }
 
     public void saveToken(Token token) {
