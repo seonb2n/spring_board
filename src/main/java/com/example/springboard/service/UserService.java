@@ -71,6 +71,13 @@ public class UserService {
                 ErrorTypeWithRequest.USER_NOT_FOUND_BY_ID));
     }
 
+    /**
+     * nickname 과 password 로 비회원 member 를 사용한다.
+     *
+     * @param nickName
+     * @param password
+     * @return
+     */
     public int createUser(String nickName, String password) {
         User user = User.of(nickName, password, false);
         return userRepository.createUser(user);

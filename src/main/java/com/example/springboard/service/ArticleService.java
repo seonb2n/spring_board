@@ -60,6 +60,13 @@ public class ArticleService {
         return createArticleByMember(articleCreateRequest, userId, boardId);
     }
 
+    /**
+     * 게시물 업데이트
+     *
+     * @param articleId
+     * @param articleModifyRequest
+     * @return
+     */
     public Article updateArticle(int articleId, ArticleModifyRequest articleModifyRequest) {
         articleRepository.updateArticleTitleAndContent(articleId, articleModifyRequest.getTitle(),
             articleModifyRequest.getContent());

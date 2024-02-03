@@ -45,6 +45,7 @@ public class CheckAuthInterceptor implements HandlerInterceptor {
                 try {
                     int userId = authFacadeService.getUserByToken(token).getId();
                     request.setAttribute("userId", userId);
+                    //todo userId 를 null 처리
                 } catch (GlobalException e) {
                     request.setAttribute("userId", null);
                 }

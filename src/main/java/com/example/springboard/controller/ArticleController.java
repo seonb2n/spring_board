@@ -47,6 +47,7 @@ public class ArticleController {
         Optional<Integer> userId = Optional.ofNullable((Integer) request.getAttribute("userId"));
         Board board = boardService.getBoardByBoardId(boardId);
         //todo controller 에 로직 제거
+        // 권한 및 인증과 관련된 부분은 AuthFacadeService 에 위임해야할 것 같다.
         if (boardService.checkCanReadBoardByAuth(board, isMember)) {
             // 회원인 경우
             if (isMember && userId.isPresent()) {
@@ -71,6 +72,7 @@ public class ArticleController {
         @RequestBody ArticleModifyRequest articleModifyRequest, HttpServletRequest request) {
         Boolean isMember = (Boolean) request.getAttribute("isMember");
         //todo controller 에 로직 제거
+        // 권한 및 인증과 관련된 부분은 AuthFacadeService 에 위임해야할 것 같다.
         Optional<Integer> userId = Optional.ofNullable((Integer) request.getAttribute("userId"));
         if (userId.isEmpty()) {
             return CommonResponse.of("Article Updated Fail", null);

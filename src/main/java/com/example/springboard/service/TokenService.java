@@ -78,6 +78,7 @@ public class TokenService {
         if (userId.isPresent()) {
             return foundToken.getUserId();
         } else {
+            //todo 이걸 exception 으로 처리하는게 맞나?
             throw new GlobalException(Map.of(), ErrorTypeWithRequest.DEFAULT_TOKEN);
         }
     }
