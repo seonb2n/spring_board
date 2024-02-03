@@ -1,5 +1,6 @@
 package com.example.springboard.common.exception;
 
+import com.example.springboard.util.enums.ErrorTypeWithRequest;
 import java.util.Map;
 
 public class GlobalException extends RuntimeException {

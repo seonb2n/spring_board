@@ -1,12 +1,12 @@
 package com.example.springboard.service;
 
-import com.example.springboard.common.exception.ErrorTypeWithRequest;
 import com.example.springboard.common.exception.GlobalException;
 import com.example.springboard.domain.articles.Article;
 import com.example.springboard.domain.boards.Board;
 import com.example.springboard.repository.ArticleRepository;
 import com.example.springboard.repository.BoardRepository;
 import com.example.springboard.util.enums.BoardAccessLevel;
+import com.example.springboard.util.enums.ErrorTypeWithRequest;
 import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Service;

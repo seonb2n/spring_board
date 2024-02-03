@@ -7,7 +7,9 @@ import com.example.springboard.controller.AuthController;
 import com.example.springboard.dto.request.auth.LoginRequest;
 import com.example.springboard.dto.request.auth.ValidAuthRequest;
 import com.example.springboard.service.AuthFacadeService;
+import com.example.springboard.util.enums.ErrorTypeWithRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Map;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -94,7 +96,7 @@ class AuthControllerTest {
         String userPassword = "user_password";
         LoginRequest request = new LoginRequest(userId, userPassword);
         given(authFacadeService.authToRegisteredUser(userId, userPassword)).willThrow(
-            GlobalException.class);
+            new GlobalException(Map.of(), ErrorTypeWithRequest.LOGIN_ID_WRONG));
 
         //when & then
         mockMvc.perform(
@@ -141,7 +143,7 @@ class AuthControllerTest {
         ValidAuthRequest request = new ValidAuthRequest(targetId, nickname, password);
         given(authFacadeService.authToUnregisteredUserForArticle(targetId, nickname,
             password)).willThrow(
-            GlobalException.class);
+            new GlobalException(Map.of(), ErrorTypeWithRequest.ARTICLE_MODIFY_NO_AUTH));
 
         //when & then
         mockMvc.perform(
@@ -188,7 +190,7 @@ class AuthControllerTest {
         ValidAuthRequest request = new ValidAuthRequest(targetId, nickname, password);
         given(authFacadeService.authToUnregisteredUserForComment(targetId, nickname,
             password)).willThrow(
-            GlobalException.class);
+            new GlobalException(Map.of(), ErrorTypeWithRequest.COMMENT_MODIFY_NO_AUTH));
 
         //when & then
         mockMvc.perform(

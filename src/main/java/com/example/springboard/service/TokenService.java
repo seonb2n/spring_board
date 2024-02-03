@@ -1,9 +1,9 @@
 package com.example.springboard.service;
 
-import com.example.springboard.common.exception.ErrorTypeWithRequest;
 import com.example.springboard.common.exception.GlobalException;
 import com.example.springboard.domain.Token;
 import com.example.springboard.repository.TokenRepository;
+import com.example.springboard.util.enums.ErrorTypeWithRequest;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.UUID;

@@ -1,10 +1,10 @@
 package com.example.springboard.service;
 
-import com.example.springboard.common.exception.ErrorTypeWithRequest;
 import com.example.springboard.common.exception.GlobalException;
 import com.example.springboard.domain.users.RegisteredUser;
 import com.example.springboard.domain.users.User;
 import com.example.springboard.repository.UserRepository;
+import com.example.springboard.util.enums.ErrorTypeWithRequest;
 import java.util.Map;
 import org.springframework.stereotype.Service;
 
