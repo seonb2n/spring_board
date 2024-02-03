@@ -45,6 +45,7 @@ public enum ErrorTypeWithRequest {
     TOKEN_NOT_FOUND_BY_VALUE(400_030, "유효한 토큰이 아닙니다."),
     USER_NOT_FOUND_BY_NICKNAME(400_031, "해당 닉네임을 가진 사용자가 없습니다."),
     USER_NOT_FOUND_BY_ID(400_032, "해당 ID 를 가진 사용자가 없습니다."),
+    DEFAULT_TOKEN(400_033, "멤버를 알 수 없는 기본 토큰입니다."),
 
     // 500 에러
     MANAGE_FIND_ID_WRONG(500_002, "아이디 찾기에 실패했습니다."),

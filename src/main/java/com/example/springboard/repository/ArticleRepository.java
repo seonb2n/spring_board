@@ -26,4 +26,8 @@ public class ArticleRepository {
     public int createArticle(Article article) {
         return articleMapper.createArticle(article);
     }
+
+    public int updateArticleTitleAndContent(Integer articleId, String title, String content) {
+        return articleMapper.updateArticleTitleAndContent(articleId, title, content);
+    }
 }

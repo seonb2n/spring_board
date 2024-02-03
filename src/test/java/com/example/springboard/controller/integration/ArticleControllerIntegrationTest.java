@@ -2,9 +2,11 @@ package com.example.springboard.controller.integration;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.example.springboard.domain.articles.Article;
 import com.example.springboard.dto.request.article.ArticleCreateRequest;
+import com.example.springboard.dto.request.article.ArticleModifyRequest;
 import com.example.springboard.dto.response.CommonResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,6 +37,8 @@ public class ArticleControllerIntegrationTest {
     @Value("${token.user}")
     private String memberToken;
     @Value("${token.no_user}")
+    private String notMemberToken;
+    @Value("${token.default}")
     private String defaultToken;
 
 
@@ -122,6 +126,102 @@ public class ArticleControllerIntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().isOk())
+            .andReturn();
+
+        String articleResponse = mvcResult.getResponse().getContentAsString();
+        CommonResponse<Article> articleCommonResponse = objectMapper.readValue(articleResponse,
+            new TypeReference<CommonResponse<Article>>() {
+            });
+
+        assertNull(articleCommonResponse.getData());
+    }
+
+    @DisplayName("[ArticleController] 회원인 경우, 내가 작성한 게시글을 수정할 수 있다.")
+    @Test
+    public void testMemberCanModifyArticle() throws Exception {
+        ArticleModifyRequest request = new ArticleModifyRequest("new article2",
+            "new article content2", null, null);
+
+        MvcResult mvcResult = mockMvc.perform(
+                MockMvcRequestBuilders.patch("/v1/articles/modify/2/3")
+                    .header("Authorization", memberToken)
+                    .content(objectMapper.writeValueAsString(request))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+            ).andExpect(MockMvcResultMatchers.status().isOk())
+            .andReturn();
+
+        String articleResponse = mvcResult.getResponse().getContentAsString();
+        CommonResponse<Article> articleCommonResponse = objectMapper.readValue(articleResponse,
+            new TypeReference<CommonResponse<Article>>() {
+            });
+
+        assertNotNull(articleCommonResponse.getData());
+        assertTrue(articleCommonResponse.getData().getContent().equals("new article content2"));
+        assertTrue(articleCommonResponse.getData().getTitle().equals("new article2"));
+    }
+
+    @DisplayName("[ArticleController] 회원인 경우, 내가 작성하지 않은 게시글은 수정할 수 없다.")
+    @Test
+    public void testMemberCannotModifyArticle() throws Exception {
+        ArticleModifyRequest request = new ArticleModifyRequest("new article2",
+            "new article content2", null, null);
+
+        MvcResult mvcResult = mockMvc.perform(
+                MockMvcRequestBuilders.patch("/v1/articles/modify/1/1")
+                    .header("Authorization", memberToken)
+                    .content(objectMapper.writeValueAsString(request))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+            ).andExpect(MockMvcResultMatchers.status().isOk())
+            .andReturn();
+
+        String articleResponse = mvcResult.getResponse().getContentAsString();
+        CommonResponse<Article> articleCommonResponse = objectMapper.readValue(articleResponse,
+            new TypeReference<CommonResponse<Article>>() {
+            });
+
+        assertNull(articleCommonResponse.getData());
+    }
+
+    @DisplayName("[ArticleController] 비회원인 경우, 내가 작성한 게시글은 수정할 수 있다.")
+    @Test
+    public void testNoMemberCanModifyArticle() throws Exception {
+        ArticleModifyRequest request = new ArticleModifyRequest("new article2",
+            "new article content2", null, null);
+
+        MvcResult mvcResult = mockMvc.perform(
+                MockMvcRequestBuilders.patch("/v1/articles/modify/1/1")
+                    .header("Authorization", notMemberToken)
+                    .content(objectMapper.writeValueAsString(request))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+            ).andExpect(MockMvcResultMatchers.status().isOk())
+            .andReturn();
+
+        String articleResponse = mvcResult.getResponse().getContentAsString();
+        CommonResponse<Article> articleCommonResponse = objectMapper.readValue(articleResponse,
+            new TypeReference<CommonResponse<Article>>() {
+            });
+
+        assertNotNull(articleCommonResponse.getData());
+        assertTrue(articleCommonResponse.getData().getContent().equals("new article content2"));
+        assertTrue(articleCommonResponse.getData().getTitle().equals("new article2"));
+    }
+
+    @DisplayName("[ArticleController] 비회원인 경우, 내가 작성하지 않은 게시글은 수정할 수 없다.")
+    @Test
+    public void testNoMemberCannotModifyArticle() throws Exception {
+        ArticleModifyRequest request = new ArticleModifyRequest("new article2",
+            "new article content2", null, null);
+
+        MvcResult mvcResult = mockMvc.perform(
+                MockMvcRequestBuilders.patch("/v1/articles/modify/2/3")
+                    .header("Authorization", notMemberToken)
+                    .content(objectMapper.writeValueAsString(request))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+            ).andExpect(MockMvcResultMatchers.status().isOk())
             .andReturn();
 
         String articleResponse = mvcResult.getResponse().getContentAsString();

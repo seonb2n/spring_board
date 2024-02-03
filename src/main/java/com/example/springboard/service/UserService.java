@@ -65,7 +65,7 @@ public class UserService {
      * @param userId
      * @return
      */
-    public User getUserByUserId(int userId) {
+    public User getUserBytUserId(int userId) {
         return userRepository.findUserByUserId(userId).orElseThrow(
             () -> new GlobalException(Map.of("userId", userId),
                 ErrorTypeWithRequest.USER_NOT_FOUND_BY_ID));

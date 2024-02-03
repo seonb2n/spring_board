@@ -6,6 +6,7 @@ import com.example.springboard.repository.TokenRepository;
 import com.example.springboard.util.enums.ErrorTypeWithRequest;
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.stereotype.Service;
 
@@ -73,6 +74,11 @@ public class TokenService {
             throw new GlobalException(Map.of("token", token),
                 ErrorTypeWithRequest.TOKEN_NOT_FOUND_BY_VALUE);
         }
-        return foundToken.getUserId();
+        Optional<Integer> userId = Optional.ofNullable(foundToken.getUserId());
+        if (userId.isPresent()) {
+            return foundToken.getUserId();
+        } else {
+            throw new GlobalException(Map.of(), ErrorTypeWithRequest.DEFAULT_TOKEN);
+        }
     }
 }

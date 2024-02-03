@@ -10,4 +10,6 @@ public interface ArticleMapper {
     List<Article> findArticleByBoardId(Integer boardId);
 
     int createArticle(Article article);
+
+    int updateArticleTitleAndContent(Integer articleId, String title, String content);
 }

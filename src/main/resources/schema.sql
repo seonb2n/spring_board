@@ -76,12 +76,12 @@ CREATE TABLE comments
 );
 
 INSERT INTO board.users
-(registered_user_id, nickname, password, is_registered, created_at)
-VALUES (null, 'test01', '1234', 0, CURRENT_TIMESTAMP);
+(id, registered_user_id, nickname, password, is_registered, created_at)
+VALUES (1, null, 'test01_nomember', '1234', 0, CURRENT_TIMESTAMP);
 
 INSERT INTO board.users
-(registered_user_id, nickname, password, is_registered, created_at)
-VALUES (1, 'test01', '1234', 1, CURRENT_TIMESTAMP);
+(id, registered_user_id, nickname, password, is_registered, created_at)
+VALUES (2, 1, 'test01_member', null, 1, CURRENT_TIMESTAMP);
 
 INSERT INTO board.registered_users
 (id, account_id, account_password, real_name, birth_date, mobile_no, created_at)
@@ -131,10 +131,18 @@ INSERT INTO board.comments
     (user_id, article_id, content)
 VALUES (2, 0, 'but I am a member');
 
+-- 회원 토큰
 INSERT into board.tokens
 (token_id, user_id, token_value, is_member, is_default, created_at, expired_at)
-values (1, 1, '54fa233d-6331-44dd-9a87-ce06db48945d', 1, 0, now(), DATE_ADD(NOW(), INTERVAL 3 DAY));
+values (1, 2, '54fa233d-6331-44dd-9a87-ce06db48945d', 1, 0, now(), DATE_ADD(NOW(), INTERVAL 3 DAY));
 
+-- 기본 토큰
 INSERT into board.tokens
 (token_id, user_id, token_value, is_member, is_default, created_at, expired_at)
-values (2, 2, '54fa233d-6331-44dd-9a87-ce06db48945c', 0, 1, now(), DATE_ADD(NOW(), INTERVAL 3 DAY));
+values (2, null, '54fa233d-6331-44dd-9a87-ce06db48945c', 0, 1, now(),
+        DATE_ADD(NOW(), INTERVAL 7 DAY));
+
+-- 비회원 토큰
+INSERT into board.tokens
+(token_id, user_id, token_value, is_member, is_default, created_at, expired_at)
+values (3, 1, '54fa233d-6331-44dd-9a87-ce06db48945a', 0, 0, now(), DATE_ADD(NOW(), INTERVAL 3 DAY));

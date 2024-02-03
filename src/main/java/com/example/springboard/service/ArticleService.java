@@ -3,6 +3,7 @@ package com.example.springboard.service;
 import com.example.springboard.common.exception.GlobalException;
 import com.example.springboard.domain.articles.Article;
 import com.example.springboard.dto.request.article.ArticleCreateRequest;
+import com.example.springboard.dto.request.article.ArticleModifyRequest;
 import com.example.springboard.repository.ArticleRepository;
 import com.example.springboard.util.enums.ErrorTypeWithRequest;
 import java.util.Map;
@@ -57,5 +58,11 @@ public class ArticleService {
         int userId = userService.createUser(articleCreateRequest.getNickName(),
             articleCreateRequest.getPassword());
         return createArticleByMember(articleCreateRequest, userId, boardId);
+    }
+
+    public Article updateArticle(int articleId, ArticleModifyRequest articleModifyRequest) {
+        articleRepository.updateArticleTitleAndContent(articleId, articleModifyRequest.getTitle(),
+            articleModifyRequest.getContent());
+        return getArticleByArticleId(articleId);
     }
 }
