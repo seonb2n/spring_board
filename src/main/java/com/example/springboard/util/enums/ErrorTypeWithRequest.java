@@ -57,4 +57,8 @@ public enum ErrorTypeWithRequest {
     ErrorTypeWithRequest(int code) {
         this.code = code;
     }
+
+    public int getCode() {
+        return code;
+    }
 }
