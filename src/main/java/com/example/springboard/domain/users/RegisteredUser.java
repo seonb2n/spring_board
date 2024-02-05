@@ -11,7 +11,10 @@ public class RegisteredUser extends BaseEntity {
     private String birthDate;
     private String mobileNo;
 
-    public RegisteredUser(Integer id, String accountId, String accountPassword, String realName,
+    protected RegisteredUser() {
+    }
+
+    private RegisteredUser(Integer id, String accountId, String accountPassword, String realName,
         String birthDate, String mobileNo) {
         this.id = id;
         this.accountId = accountId;

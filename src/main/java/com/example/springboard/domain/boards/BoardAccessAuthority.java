@@ -7,6 +7,9 @@ public class BoardAccessAuthority {
     private int id;
     private AccessLevel accesslevel;
 
+    protected BoardAccessAuthority() {
+    }
+
     private BoardAccessAuthority(int id, AccessLevel accesslevel) {
         this.id = id;
         this.accesslevel = accesslevel;

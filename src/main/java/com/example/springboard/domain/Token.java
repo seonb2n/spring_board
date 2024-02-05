@@ -12,6 +12,9 @@ public class Token {
     private LocalDateTime createdAt;
     private LocalDateTime expiredAt;
 
+    protected Token() {
+    }
+
     private Token(Integer userId, String tokenValue, boolean isMember, boolean isDefault,
         LocalDateTime createdAt,
         LocalDateTime expiredAt) {

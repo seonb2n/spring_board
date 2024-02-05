@@ -12,6 +12,9 @@ public class Article extends BaseEntity {
     private Integer articleCommentNumber;
     private Integer articleHitNumber;
 
+    protected Article() {
+    }
+
     /**
      * mybatis 에서 객체를 매핑하기 위해 사용하는 생성자
      *

@@ -8,6 +8,9 @@ public class Board extends BaseEntity {
     private String title;
     private BoardAccessAuthority boardAccessAuthority;
 
+    protected Board() {
+    }
+
     private Board(int id, String title, BoardAccessAuthority boardAccessAuthority) {
         this.id = id;
         this.title = title;

@@ -10,6 +10,9 @@ public class User extends BaseEntity {
     private String password;
     private Boolean isRegistered;
 
+    protected User() {
+    }
+
     private User(Integer userId, String nickname, String password, Boolean isRegistered) {
         this.userId = userId;
         this.nickname = nickname;
