@@ -1,6 +1,7 @@
 package com.example.springboard.controller;
 
 import com.example.springboard.common.annotations.CheckAuthByToken;
+import com.example.springboard.common.exception.GlobalException;
 import com.example.springboard.domain.articles.Article;
 import com.example.springboard.domain.boards.Board;
 import com.example.springboard.dto.request.article.ArticleCreateRequest;
@@ -8,8 +9,11 @@ import com.example.springboard.dto.request.article.ArticleModifyRequest;
 import com.example.springboard.dto.response.CommonResponse;
 import com.example.springboard.service.ArticleService;
 import com.example.springboard.service.BoardService;
+import com.example.springboard.util.enums.ErrorTypeWithRequest;
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.Map;
 import java.util.Optional;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +31,22 @@ public class ArticleController {
     public ArticleController(BoardService boardService, ArticleService articleService) {
         this.boardService = boardService;
         this.articleService = articleService;
+    }
+
+    @GetMapping("/{article_id}")
+    @CheckAuthByToken
+    public CommonResponse<Article> getArticle(@PathVariable("board_id") Integer boardId,
+        @PathVariable("article_id") Integer articleId,
+        HttpServletRequest request
+    ) {
+        Boolean isMember = (Boolean) request.getAttribute("isMember");
+        Board board = boardService.getBoardByBoardId(boardId);
+        if (boardService.checkCanReadBoardByAuth(board, isMember)) {
+            Article article = articleService.getArticleByArticleId(articleId);
+            return CommonResponse.of("Article Get", article);
+        }
+        throw new GlobalException(Map.of("boardId", boardId, "articleId", articleId),
+            ErrorTypeWithRequest.ARTICLE_VIEW_NO_AUTH);
     }
 
     /**
@@ -62,7 +82,8 @@ public class ArticleController {
                 return CommonResponse.of("Article Created", article);
             }
         }
-        return CommonResponse.of("Article Created Fail", null);
+        throw new GlobalException(Map.of("boardId", boardId, "userId", userId),
+            ErrorTypeWithRequest.ARTICLE_CREATE_NO_AUTH);
     }
 
     @PatchMapping("/modify/{article_id}")
@@ -86,7 +107,8 @@ public class ArticleController {
             Article updateArticle = articleService.updateArticle(articleId, articleModifyRequest);
             return CommonResponse.of("Article updated", updateArticle);
         }
-        return CommonResponse.of("Article Updated Fail", null);
+        throw new GlobalException(Map.of("boardId", boardId, "userId", userId),
+            ErrorTypeWithRequest.ARTICLE_MODIFY_NO_AUTH);
     }
 
 }

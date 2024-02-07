@@ -1,5 +1,6 @@
 package com.example.springboard.controller.integration;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -8,6 +9,8 @@ import com.example.springboard.domain.articles.Article;
 import com.example.springboard.dto.request.article.ArticleCreateRequest;
 import com.example.springboard.dto.request.article.ArticleModifyRequest;
 import com.example.springboard.dto.response.CommonResponse;
+import com.example.springboard.dto.response.ErrorResponse;
+import com.example.springboard.util.enums.ErrorTypeWithRequest;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -252,5 +255,85 @@ public class ArticleControllerIntegrationTest {
             });
 
         assertNull(articleCommonResponse.getData());
+    }
+
+    @DisplayName("[ArticleController] 회원인 경우, 회원 전용 게시글을 볼 수 있다.")
+    @Test
+    public void testMemberCanViewArticleAtMemberBoard() throws Exception {
+        MvcResult mvcResult = mockMvc.perform(
+                MockMvcRequestBuilders.get("/v1/articles/2/3")
+                    .header("Authorization", memberToken)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+            ).andExpect(MockMvcResultMatchers.status().isOk())
+            .andReturn();
+
+        String articleResponse = mvcResult.getResponse().getContentAsString();
+        CommonResponse<Article> articleCommonResponse = objectMapper.readValue(articleResponse,
+            new TypeReference<CommonResponse<Article>>() {
+            });
+
+        assertNotNull(articleCommonResponse.getData());
+    }
+
+    @DisplayName("[ArticleController] 회원인 경우, 비회원 전용 게시글을 볼 수 없다.")
+    @Test
+    public void testMemberCannotViewArticleAtNotMemberBoard() throws Exception {
+        MvcResult mvcResult = mockMvc.perform(
+                MockMvcRequestBuilders.get("/v1/articles/3/1")
+                    .header("Authorization", memberToken)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+            ).andExpect(MockMvcResultMatchers.status().isOk())
+            .andReturn();
+
+        String articleResponse = mvcResult.getResponse().getContentAsString();
+        CommonResponse<ErrorResponse> articleCommonResponse = objectMapper.readValue(
+            articleResponse,
+            new TypeReference<CommonResponse<ErrorResponse>>() {
+            });
+
+        assertEquals(ErrorTypeWithRequest.ARTICLE_VIEW_NO_AUTH.getCode(),
+            articleCommonResponse.getData().getStatusCode());
+    }
+
+    @DisplayName("[ArticleController] 비회원인 경우, 비회원 전용 게시글을 볼 수 있다.")
+    @Test
+    public void testNotMemberCanViewArticleAtNotMemberBoard() throws Exception {
+        MvcResult mvcResult = mockMvc.perform(
+                MockMvcRequestBuilders.get("/v1/articles/3/1")
+                    .header("Authorization", notMemberToken)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+            ).andExpect(MockMvcResultMatchers.status().isOk())
+            .andReturn();
+
+        String articleResponse = mvcResult.getResponse().getContentAsString();
+        CommonResponse<Article> articleCommonResponse = objectMapper.readValue(articleResponse,
+            new TypeReference<CommonResponse<Article>>() {
+            });
+
+        assertNotNull(articleCommonResponse.getData());
+    }
+
+    @DisplayName("[ArticleController] 비회원인 경우, 회원 전용 게시글을 볼 수 없다.")
+    @Test
+    public void testNotMemberCannotViewArticleAtMemberBoard() throws Exception {
+        MvcResult mvcResult = mockMvc.perform(
+                MockMvcRequestBuilders.get("/v1/articles/2/1")
+                    .header("Authorization", notMemberToken)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+            ).andExpect(MockMvcResultMatchers.status().isOk())
+            .andReturn();
+
+        String articleResponse = mvcResult.getResponse().getContentAsString();
+        CommonResponse<ErrorResponse> articleCommonResponse = objectMapper.readValue(
+            articleResponse,
+            new TypeReference<CommonResponse<ErrorResponse>>() {
+            });
+
+        assertEquals(ErrorTypeWithRequest.ARTICLE_VIEW_NO_AUTH.getCode(),
+            articleCommonResponse.getData().getStatusCode());
     }
 }
