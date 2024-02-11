@@ -2,19 +2,16 @@ package com.example.springboard.dto.response;
 
 import com.example.springboard.util.enums.ErrorTypeWithRequest;
 
-public class ErrorResponse {
+public class ErrorResponse extends CommonResponse<String> {
 
-    private int statusCode;
-
-    public ErrorResponse(ErrorTypeWithRequest errorCode) {
-        this.statusCode = errorCode.getCode();
+    protected ErrorResponse() {
     }
 
-    public int getStatusCode() {
-        return statusCode;
+    private ErrorResponse(ErrorTypeWithRequest responseCode) {
+        super(responseCode.getCode(), null);
     }
 
-    public void setStatusCode(int statusCode) {
-        this.statusCode = statusCode;
+    public static ErrorResponse of(ErrorTypeWithRequest responseCode) {
+        return new ErrorResponse(responseCode);
     }
 }

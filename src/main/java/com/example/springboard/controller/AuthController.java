@@ -33,7 +33,7 @@ public class AuthController {
     CommonResponse<DefaultResponseDto> getDefaultToken() {
         String token = authFacadeService.getDefaultToken();
         DefaultResponseDto responseDto = new DefaultResponseDto(token);
-        return CommonResponse.of(HttpStatus.CREATED.getReasonPhrase(), responseDto);
+        return CommonResponse.of(HttpStatus.CREATED, responseDto);
     }
 
     /**
@@ -48,7 +48,7 @@ public class AuthController {
         String token = authFacadeService.authToRegisteredUser(request.getUserId(),
             request.getPassword());
         LoginResponseDto responseDto = LoginResponseDto.of(token);
-        return CommonResponse.of(HttpStatus.ACCEPTED.getReasonPhrase(), responseDto);
+        return CommonResponse.of(HttpStatus.ACCEPTED, responseDto);
     }
 
     /**
@@ -64,7 +64,7 @@ public class AuthController {
             dto.getNickname(),
             dto.getPassword());
         ValidAuthResponseDto responseDto = ValidAuthResponseDto.of(token);
-        return CommonResponse.of(HttpStatus.OK.getReasonPhrase(), responseDto);
+        return CommonResponse.of(HttpStatus.OK, responseDto);
     }
 
     /**
@@ -79,6 +79,6 @@ public class AuthController {
         String token = authFacadeService.authToUnregisteredUserForComment(dto.getTargetId(),
             dto.getNickname(), dto.getPassword());
         ValidAuthResponseDto responseDto = ValidAuthResponseDto.of(token);
-        return CommonResponse.of(HttpStatus.OK.getReasonPhrase(), responseDto);
+        return CommonResponse.of(HttpStatus.OK, responseDto);
     }
 }
