@@ -62,7 +62,7 @@ class BoardControllerIntegrationTest {
 
         // then
         assertEquals(200, result.getResponse().getStatus());
-        assertEquals(HttpStatus.OK.getReasonPhrase(), response.getMessage());
+        assertEquals(HttpStatus.OK.value(), response.getResponseCode());
         assertEquals(3, response.getData().size());
     }
 

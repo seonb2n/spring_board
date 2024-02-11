@@ -35,7 +35,7 @@ public class BoardController {
     @PostMapping("/list/{page}")
     CommonResponse<List<Board>> getBoardList(@PathVariable int page) {
         List<Board> boardList = boardService.getBoardList(page);
-        return CommonResponse.of(HttpStatus.OK.getReasonPhrase(), boardList);
+        return CommonResponse.of(HttpStatus.OK, boardList);
     }
 
     /**
@@ -50,7 +50,7 @@ public class BoardController {
         HttpServletRequest request) {
         Boolean isMember = (Boolean) request.getAttribute("isMember");
         List<Article> articleList = boardService.getArticleListByBoardId(boardId, isMember);
-        return CommonResponse.of(HttpStatus.OK.getReasonPhrase(), articleList);
+        return CommonResponse.of(HttpStatus.OK, articleList);
     }
 
 }

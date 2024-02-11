@@ -90,10 +90,10 @@ public class AuthIntegrationControllerTest {
             .andReturn();
 
         String response = mvcResult.getResponse().getContentAsString();
-        CommonResponse<ErrorResponse> errorResponse = objectMapper.readValue(response,
-            new TypeReference<CommonResponse<ErrorResponse>>() {
+        ErrorResponse errorResponse = objectMapper.readValue(response,
+            new TypeReference<ErrorResponse>() {
             });
         assertEquals(ErrorTypeWithRequest.ARTICLE_LIST_VIEW_NO_AUTH.getCode(),
-            errorResponse.getData().getStatusCode());
+            errorResponse.getResponseCode());
     }
 }

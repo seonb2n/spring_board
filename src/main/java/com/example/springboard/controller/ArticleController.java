@@ -13,6 +13,7 @@ import com.example.springboard.util.enums.ErrorTypeWithRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Map;
 import java.util.Optional;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,7 +44,7 @@ public class ArticleController {
         Board board = boardService.getBoardByBoardId(boardId);
         if (boardService.checkCanReadBoardByAuth(board, isMember)) {
             Article article = articleService.getArticleByArticleId(articleId);
-            return CommonResponse.of("Article Get", article);
+            return CommonResponse.of(HttpStatus.OK, article);
         }
         throw new GlobalException(Map.of("boardId", boardId, "articleId", articleId),
             ErrorTypeWithRequest.ARTICLE_VIEW_NO_AUTH);
@@ -73,13 +74,13 @@ public class ArticleController {
             if (isMember && userId.isPresent()) {
                 Article article = articleService.createArticleByMember(articleCreateRequest,
                     userId.get(), boardId);
-                return CommonResponse.of("Article Created", article);
+                return CommonResponse.of(HttpStatus.CREATED, article);
             }
             // 비회원인 경우
             else if (!isMember) {
                 Article article = articleService.createArticleByNoMember(articleCreateRequest,
                     boardId);
-                return CommonResponse.of("Article Created", article);
+                return CommonResponse.of(HttpStatus.CREATED, article);
             }
         }
         throw new GlobalException(Map.of("boardId", boardId, "userId", userId),
@@ -96,7 +97,7 @@ public class ArticleController {
         // 권한 및 인증과 관련된 부분은 AuthFacadeService 에 위임해야할 것 같다.
         Optional<Integer> userId = Optional.ofNullable((Integer) request.getAttribute("userId"));
         if (userId.isEmpty()) {
-            return CommonResponse.of("Article Updated Fail", null);
+            return CommonResponse.of(HttpStatus.BAD_REQUEST, null);
         }
         Board board = boardService.getBoardByBoardId(boardId);
         Article article = articleService.getArticleByArticleId(articleId);
@@ -105,7 +106,7 @@ public class ArticleController {
         if (boardService.checkCanReadBoardByAuth(board, isMember)
             && article.getUserId() == userId.get()) {
             Article updateArticle = articleService.updateArticle(articleId, articleModifyRequest);
-            return CommonResponse.of("Article updated", updateArticle);
+            return CommonResponse.of(HttpStatus.OK, updateArticle);
         }
         throw new GlobalException(Map.of("boardId", boardId, "userId", userId),
             ErrorTypeWithRequest.ARTICLE_MODIFY_NO_AUTH);

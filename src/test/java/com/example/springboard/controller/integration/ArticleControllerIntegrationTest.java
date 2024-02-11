@@ -288,13 +288,13 @@ public class ArticleControllerIntegrationTest {
             .andReturn();
 
         String articleResponse = mvcResult.getResponse().getContentAsString();
-        CommonResponse<ErrorResponse> articleCommonResponse = objectMapper.readValue(
+        ErrorResponse articleCommonResponse = objectMapper.readValue(
             articleResponse,
-            new TypeReference<CommonResponse<ErrorResponse>>() {
+            new TypeReference<ErrorResponse>() {
             });
 
         assertEquals(ErrorTypeWithRequest.ARTICLE_VIEW_NO_AUTH.getCode(),
-            articleCommonResponse.getData().getStatusCode());
+            articleCommonResponse.getResponseCode());
     }
 
     @DisplayName("[ArticleController] 비회원인 경우, 비회원 전용 게시글을 볼 수 있다.")
@@ -328,12 +328,12 @@ public class ArticleControllerIntegrationTest {
             .andReturn();
 
         String articleResponse = mvcResult.getResponse().getContentAsString();
-        CommonResponse<ErrorResponse> articleCommonResponse = objectMapper.readValue(
+        ErrorResponse articleCommonResponse = objectMapper.readValue(
             articleResponse,
-            new TypeReference<CommonResponse<ErrorResponse>>() {
+            new TypeReference<ErrorResponse>() {
             });
 
         assertEquals(ErrorTypeWithRequest.ARTICLE_VIEW_NO_AUTH.getCode(),
-            articleCommonResponse.getData().getStatusCode());
+            articleCommonResponse.getResponseCode());
     }
 }
