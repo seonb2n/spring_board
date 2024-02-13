@@ -4,16 +4,17 @@ import java.time.LocalDateTime;
 import org.springframework.http.HttpStatus;
 
 public class CommonResponse<T> {
-    private LocalDateTime responseTime;
-    private int responseCode;
+
+    private LocalDateTime timestamp;
+    private int status;
     private T data;
 
     protected CommonResponse() {
     }
 
     protected CommonResponse(int responseCode, T data) {
-        this.responseTime = LocalDateTime.now();
-        this.responseCode = responseCode;
+        this.timestamp = LocalDateTime.now();
+        this.status = responseCode;
         this.data = data;
     }
 
@@ -25,20 +26,20 @@ public class CommonResponse<T> {
         return new CommonResponse<>(httpStatus.value(), data);
     }
 
-    public LocalDateTime getResponseTime() {
-        return responseTime;
+    public LocalDateTime getTimestamp() {
+        return timestamp;
     }
 
-    public void setResponseTime(LocalDateTime responseTime) {
-        this.responseTime = responseTime;
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 
-    public int getResponseCode() {
-        return responseCode;
+    public int getStatus() {
+        return status;
     }
 
-    public void setResponseCode(int responseCode) {
-        this.responseCode = responseCode;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public T getData() {

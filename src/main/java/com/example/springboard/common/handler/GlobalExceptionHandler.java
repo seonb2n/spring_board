@@ -13,7 +13,7 @@ public class GlobalExceptionHandler {
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(GlobalException.class)
-    public ErrorResponse handleException(GlobalException exception) {
+    public ErrorResponse handleGlobalException(GlobalException exception) {
         // todo logger 처리
         return ErrorResponse.of(exception.getErrorType());
     }
