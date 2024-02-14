@@ -1,15 +1,11 @@
 package com.example.springboard.dto.response.auth;
 
-public class ValidAuthResponseDto {
+public class DefaultResponseDto {
 
     String token;
 
-    private ValidAuthResponseDto(String token) {
+    public DefaultResponseDto(String token) {
         this.token = token;
-    }
-
-    public static ValidAuthResponseDto of(String token) {
-        return new ValidAuthResponseDto(token);
     }
 
     public String getToken() {

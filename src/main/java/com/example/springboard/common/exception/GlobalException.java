@@ -1,47 +1,24 @@
 package com.example.springboard.common.exception;
 
-import org.springframework.boot.logging.LogLevel;
+import com.example.springboard.util.enums.ErrorTypeWithRequest;
+import java.util.Map;
 
 public class GlobalException extends RuntimeException {
 
-    private String params;
-    private LogLevel logLevel;
+    private Map<String, Object> paramMap;
+    private ErrorTypeWithRequest errorType;
 
-    public GlobalException() {
-        super();
+    public GlobalException(Map<String, Object> paramMap, ErrorTypeWithRequest errorType) {
+        this.paramMap = paramMap;
+        this.errorType = errorType;
     }
 
-    public GlobalException(String message) {
-        super(message);
-        this.logLevel = LogLevel.INFO;
+    public Map<String, Object> getParamMap() {
+        return paramMap;
     }
 
-    public GlobalException(String message, String params) {
-        super(message);
-        this.params = params;
+    public ErrorTypeWithRequest getErrorType() {
+        return errorType;
     }
 
-    public GlobalException(String message, String params, LogLevel logLevel) {
-        super(message);
-        this.params = params;
-        this.logLevel = logLevel;
-    }
-
-    public GlobalException(String message, Throwable cause, String params) {
-        super(message, cause);
-        this.params = params;
-    }
-
-    public GlobalException(Throwable cause, String params) {
-        super(cause);
-        this.params = params;
-    }
-
-    public String getParams() {
-        return params;
-    }
-
-    public LogLevel getLogLevel() {
-        return logLevel;
-    }
 }

@@ -1,32 +1,45 @@
 package com.example.springboard.dto.response;
 
 import java.time.LocalDateTime;
+import org.springframework.http.HttpStatus;
 
 public class CommonResponse<T> {
-    private LocalDateTime responseTime;
-    private String message;
+
+    private LocalDateTime timestamp;
+    private int status;
     private T data;
 
-    public CommonResponse(String message, T data) {
-        this.responseTime = LocalDateTime.now();
-        this.message = message;
+    protected CommonResponse() {
+    }
+
+    protected CommonResponse(int responseCode, T data) {
+        this.timestamp = LocalDateTime.now();
+        this.status = responseCode;
         this.data = data;
     }
 
-    public LocalDateTime getResponseTime() {
-        return responseTime;
+    public static <T> CommonResponse<T> of(int responseCode, T data) {
+        return new CommonResponse<>(responseCode, data);
     }
 
-    public void setResponseTime(LocalDateTime responseTime) {
-        this.responseTime = responseTime;
+    public static <T> CommonResponse<T> of(HttpStatus httpStatus, T data) {
+        return new CommonResponse<>(httpStatus.value(), data);
     }
 
-    public String getMessage() {
-        return message;
+    public LocalDateTime getTimestamp() {
+        return timestamp;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public T getData() {

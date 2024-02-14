@@ -7,4 +7,6 @@ public interface UserMapper {
     User findUserByNickName(String nickname);
 
     User findUserByRegisteredUserId(Integer registeredUserId);
+
+    User findUserByUserId(Integer userId);
 }

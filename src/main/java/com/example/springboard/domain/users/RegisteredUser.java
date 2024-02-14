@@ -11,7 +11,10 @@ public class RegisteredUser extends BaseEntity {
     private String birthDate;
     private String mobileNo;
 
-    public RegisteredUser(Integer id, String accountId, String accountPassword, String realName,
+    protected RegisteredUser() {
+    }
+
+    private RegisteredUser(Integer id, String accountId, String accountPassword, String realName,
         String birthDate, String mobileNo) {
         this.id = id;
         this.accountId = accountId;
@@ -50,5 +53,29 @@ public class RegisteredUser extends BaseEntity {
 
     public String getMobileNo() {
         return mobileNo;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    public void setAccountPassword(String accountPassword) {
+        this.accountPassword = accountPassword;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public void setMobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
     }
 }
