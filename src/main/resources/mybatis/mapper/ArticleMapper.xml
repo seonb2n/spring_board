@@ -1,10 +1,48 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.springboard.mapper.ArticleMapper">
-  <select id="findArticleByArticleId" parameterType="Integer"
+
+  <insert id="createArticle"
+    keyProperty="id"
+    parameterType="com.example.springboard.domain.articles.Article"
+    useGeneratedKeys="true">
+    INSERT INTO articles (user_id, board_id, title, content, article_comment_number,
+                          article_hit_number)
+    VALUES (#{userId}, #{boardId}, #{title}, #{content}, #{articleCommentNumber},
+            #{articleHitNumber})
+  </insert>
+
+
+  <resultMap id="articleResultMap" type="com.example.springboard.domain.articles.Article">
+    <result column="id" property="id"/>
+    <result column="user_id" property="userId"/>
+    <result column="board_id" property="boardId"/>
+    <result column="title" property="title"/>
+    <result column="content" property="content"/>
+    <result column="article_comment_number" property="articleCommentNumber"/>
+    <result column="article_hit_number" property="articleHitNumber"/>
+  </resultMap>
+
+  <select id="findArticleByBoardId" parameterType="Integer"
     resultType="com.example.springboard.domain.articles.Article">
+    SELECT id, user_id, board_id, title, content, article_comment_number, article_hit_number
+    FROM articles
+    WHERE board_id = #{boardId}
+  </select>
+
+  <select id="findArticleByArticleId" parameterType="Integer"
+    resultMap="articleResultMap">
     SELECT id, user_id, board_id, title, content, article_comment_number, article_hit_number
     FROM articles
     WHERE id = #{articleId}
   </select>
+
+  <update id="updateArticleTitleAndContent"
+    parameterType="map"
+    useGeneratedKeys="false">
+    UPDATE articles
+    SET title   = #{title},
+        content = #{content}
+    WHERE id = #{articleId}
+  </update>
 </mapper>

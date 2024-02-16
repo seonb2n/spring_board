@@ -32,4 +32,17 @@ public class Board extends BaseEntity {
     public BoardAccessAuthority getBoardAccessAuthority() {
         return boardAccessAuthority;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setBoardAccessAuthority(
+        BoardAccessAuthority boardAccessAuthority) {
+        this.boardAccessAuthority = boardAccessAuthority;
+    }
 }

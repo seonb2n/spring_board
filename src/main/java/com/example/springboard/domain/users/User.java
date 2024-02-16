@@ -8,11 +8,10 @@ public class User extends BaseEntity {
     private String nickname;
     private String password;
     private Boolean isRegistered;
+    private Integer registeredUserId;
 
     protected User() {
     }
-
-    private Integer registeredUserId;
 
     private User(Integer id, String nickname, String password, Boolean isRegistered,
         Integer registeredUserId) {

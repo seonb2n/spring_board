@@ -42,6 +42,12 @@
       <version>3.0.3</version>
     </dependency>
 
+    <dependency>
+      <artifactId>jackson-datatype-jsr310</artifactId>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <version>2.12.4</version>
+    </dependency>
+
     <!-- AspectJ weaver -->
     <dependency>
       <groupId>org.aspectj</groupId>
@@ -61,6 +67,13 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <artifactId>p6spy</artifactId>
+      <groupId>p6spy</groupId>
+      <scope>test</scope>
+      <version>3.9.1</version>
     </dependency>
   </dependencies>
 

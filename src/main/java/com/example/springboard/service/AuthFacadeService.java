@@ -64,7 +64,7 @@ public class AuthFacadeService {
     public String authToUnregisteredUserForArticle(int articleId, String nickname, String password)
         throws GlobalException {
         Article article = articleService.getArticleByArticleId(articleId);
-        User user = userService.getUserByUserId(article.getUserId());
+        User user = userService.getUserBytUserId(article.getUserId());
         if (user.getNickname().equals(nickname) && user.getPassword().equals(password)) {
             return tokenService.createUserToken(user.getRegisteredUserId(), false);
         }
@@ -84,7 +84,7 @@ public class AuthFacadeService {
     public String authToUnregisteredUserForComment(int commentId, String nickname, String password)
         throws GlobalException {
         Comment comment = commentService.getCommentBytCommentId(commentId);
-        User user = userService.getUserByUserId(comment.getUserId());
+        User user = userService.getUserBytUserId(comment.getUserId());
         if (user.getNickname().equals(nickname) && user.getPassword().equals(password)) {
             return tokenService.createUserToken(user.getRegisteredUserId(), false);
         }
@@ -116,7 +116,7 @@ public class AuthFacadeService {
      */
     public User getUserByToken(String token) {
         int userId = tokenService.getUserIdByToken(token);
-        return userService.getUserByUserId(userId);
+        return userService.getUserBytUserId(userId);
     }
 
     /**
