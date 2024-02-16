@@ -10,7 +10,7 @@ DROP table if exists comments;
 CREATE TABLE tokens
 (
     token_id    INT AUTO_INCREMENT PRIMARY KEY,
-    user_id     INT          NOT NULL COMMENT '회원 아이디',
+    user_id INT COMMENT '회원 아이디',
     token_value VARCHAR(255) NOT NULL COMMENT '토큰 값',
     is_member boolean NOT NULL COMMENT '토큰 소유자 회원 여부',
     is_default boolean NOT NULL COMMENT '기본 토큰 여부',
@@ -21,7 +21,7 @@ CREATE TABLE tokens
 CREATE TABLE users
 (
     id                 INT AUTO_INCREMENT PRIMARY KEY,
-    nickname           varchar(255) NOT NULL COMMENT '닉네임',
+    nickname varchar(255) COMMENT '닉네임',
     is_registered      boolean      NOT NULL COMMENT '회원 비회원 여부',
     registered_user_id INT COMMENT '가입 회원 아이디',
     password           varchar(255) COMMENT '비회원 비밀번호',
@@ -76,12 +76,12 @@ CREATE TABLE comments
 );
 
 INSERT INTO board.users
-(registered_user_id, nickname, password, is_registered, created_at)
-VALUES (null, 'test01', '1234', 0, CURRENT_TIMESTAMP);
+(id, registered_user_id, nickname, password, is_registered, created_at)
+VALUES (1, null, 'test01_nomember', '1234', 0, CURRENT_TIMESTAMP);
 
 INSERT INTO board.users
-(registered_user_id, nickname, password, is_registered, created_at)
-VALUES (1, 'test01', '1234', 1, CURRENT_TIMESTAMP);
+(id, registered_user_id, nickname, password, is_registered, created_at)
+VALUES (2, 1, 'test01_member', null, 1, CURRENT_TIMESTAMP);
 
 INSERT INTO board.registered_users
 (id, account_id, account_password, real_name, birth_date, mobile_no, created_at)
@@ -89,19 +89,39 @@ VALUES (1, 'test01_id', 'test01_password', '김테스트', '001228', '010-1234-5
 
 INSERT INTO board.boards
     (id, title, access_authority_id)
-VALUES (0, 'funfun', 0);
+VALUES (1, 'all_board', 1);
+
+INSERT INTO board.boards
+    (id, title, access_authority_id)
+VALUES (2, 'member_board', 2);
+
+INSERT INTO board.boards
+    (id, title, access_authority_id)
+VALUES (3, 'not_member_board', 3);
 
 INSERT INTO board.board_access_authorities
     (id, access_level)
-VALUES (0, 'ALL');
+VALUES (1, 'ALL');
+
+INSERT INTO board.board_access_authorities
+    (id, access_level)
+VALUES (2, 'MEMBER_ONLY');
+
+INSERT INTO board.board_access_authorities
+    (id, access_level)
+VALUES (3, 'NOT_MEMBER_ONLY');
 
 INSERT INTO board.articles
 (user_id, board_id, title, content, article_comment_number, article_hit_number)
-VALUES (1, 0, 'written_no_member', 'I am not a member', 0, 0);
+VALUES (1, 1, 'written_no_member', 'I am not a member', 0, 0);
 
 INSERT INTO board.articles
 (user_id, board_id, title, content, article_comment_number, article_hit_number)
-VALUES (2, 0, 'written_member', 'I am a member', 0, 0);
+VALUES (2, 1, 'written_member', 'I am a member', 0, 0);
+
+INSERT INTO board.articles
+(user_id, board_id, title, content, article_comment_number, article_hit_number)
+VALUES (2, 2, 'written_member', 'I am a member and this is member board', 0, 0);
 
 INSERT INTO board.comments
     (user_id, article_id, content)
@@ -111,3 +131,18 @@ INSERT INTO board.comments
     (user_id, article_id, content)
 VALUES (2, 0, 'but I am a member');
 
+-- 회원 토큰
+INSERT into board.tokens
+(token_id, user_id, token_value, is_member, is_default, created_at, expired_at)
+values (1, 2, '54fa233d-6331-44dd-9a87-ce06db48945d', 1, 0, now(), DATE_ADD(NOW(), INTERVAL 3 DAY));
+
+-- 기본 토큰
+INSERT into board.tokens
+(token_id, user_id, token_value, is_member, is_default, created_at, expired_at)
+values (2, null, '54fa233d-6331-44dd-9a87-ce06db48945c', 0, 1, now(),
+        DATE_ADD(NOW(), INTERVAL 7 DAY));
+
+-- 비회원 토큰
+INSERT into board.tokens
+(token_id, user_id, token_value, is_member, is_default, created_at, expired_at)
+values (3, 1, '54fa233d-6331-44dd-9a87-ce06db48945a', 0, 0, now(), DATE_ADD(NOW(), INTERVAL 3 DAY));

@@ -19,6 +19,15 @@
     resultType="com.example.springboard.domain.users.User">
     SELECT id, nickname, password, is_registered, registered_user_id
     FROM users
-    WHERE registered_user_id = #{userId}
+    WHERE id = #{userId}
   </select>
+
+  <insert id="createUser"
+    keyProperty="id"
+    parameterType="com.example.springboard.domain.users.User"
+    useGeneratedKeys="true"
+  >
+    INSERT INTO users (nickname, is_registered, password)
+    VALUES (#{nickname}, #{isRegistered}, #{password})
+  </insert>
 </mapper>

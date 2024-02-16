@@ -15,7 +15,7 @@ public class Token {
     protected Token() {
     }
 
-    private Token(Integer userId, String tokenValue, boolean isMember, boolean isDefault,
+    public Token(Integer userId, String tokenValue, boolean isMember, boolean isDefault,
         LocalDateTime createdAt,
         LocalDateTime expiredAt) {
         this.userId = userId;
@@ -31,8 +31,12 @@ public class Token {
             LocalDateTime.now().plusDays(7));
     }
 
+    /**
+     * @param tokenValue
+     * @return
+     */
     public static Token createDefaultToken(String tokenValue) {
-        return new Token(0, tokenValue, false, true, LocalDateTime.now(),
+        return new Token(null, tokenValue, false, true, LocalDateTime.now(),
             LocalDateTime.now().plusDays(7));
     }
 
