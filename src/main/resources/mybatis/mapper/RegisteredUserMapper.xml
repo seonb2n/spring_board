@@ -1,9 +1,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.springboard.mapper.RegisteredUserMapper">
+
+  <resultMap id="registeredUserResultMap"
+    type="com.example.springboard.domain.users.RegisteredUser">
+    <result column="id" property="id"/>
+    <result column="account_id" property="accountId"/>
+    <result column="account_password" property="accountPassword"/>
+    <result column="real_name" property="realName"/>
+    <result column="birth_date" property="birthDate"/>
+    <result column="mobile_no" property="mobileNo"/>
+    <result column="created_at" property="createdAt"/>
+  </resultMap>
+
   <select id="findUserByAccountId" parameterType="string"
-    resultType="com.example.springboard.domain.users.RegisteredUser">
-    SELECT id, account_id, account_password, real_name, birth_date, mobile_no
+    resultMap="registeredUserResultMap">
+    SELECT id, account_id, account_password, real_name, birth_date, mobile_no, created_at
     FROM registered_users
     WHERE account_id = #{accountId}
   </select>

@@ -4,7 +4,7 @@ public class ValidAuthResponseDto {
 
     String token;
 
-    private ValidAuthResponseDto(String token) {
+    public ValidAuthResponseDto(String token) {
         this.token = token;
     }
 

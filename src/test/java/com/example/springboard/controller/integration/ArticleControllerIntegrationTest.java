@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.example.springboard.domain.articles.Article;
 import com.example.springboard.dto.request.article.ArticleCreateRequest;
 import com.example.springboard.dto.request.article.ArticleModifyRequest;
+import com.example.springboard.dto.response.CommonErrorResponse;
 import com.example.springboard.dto.response.CommonResponse;
-import com.example.springboard.dto.response.ErrorResponse;
 import com.example.springboard.util.enums.ErrorTypeWithRequest;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -288,13 +288,13 @@ public class ArticleControllerIntegrationTest {
             .andReturn();
 
         String articleResponse = mvcResult.getResponse().getContentAsString();
-        ErrorResponse articleCommonResponse = objectMapper.readValue(
+        CommonErrorResponse articleCommonResponse = objectMapper.readValue(
             articleResponse,
-            new TypeReference<ErrorResponse>() {
+            new TypeReference<CommonErrorResponse>() {
             });
 
         assertEquals(ErrorTypeWithRequest.ARTICLE_VIEW_NO_AUTH.getCode(),
-            articleCommonResponse.getResponseCode());
+            articleCommonResponse.getStatus());
     }
 
     @DisplayName("[ArticleController] 비회원인 경우, 비회원 전용 게시글을 볼 수 있다.")
@@ -328,12 +328,12 @@ public class ArticleControllerIntegrationTest {
             .andReturn();
 
         String articleResponse = mvcResult.getResponse().getContentAsString();
-        ErrorResponse articleCommonResponse = objectMapper.readValue(
+        CommonErrorResponse articleCommonResponse = objectMapper.readValue(
             articleResponse,
-            new TypeReference<ErrorResponse>() {
+            new TypeReference<CommonErrorResponse>() {
             });
 
         assertEquals(ErrorTypeWithRequest.ARTICLE_VIEW_NO_AUTH.getCode(),
-            articleCommonResponse.getResponseCode());
+            articleCommonResponse.getStatus());
     }
 }
