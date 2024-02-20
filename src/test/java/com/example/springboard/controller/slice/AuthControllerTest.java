@@ -88,7 +88,7 @@ class AuthControllerTest {
             MockMvcResultMatchers.jsonPath("$.data.token", Matchers.notNullValue()));
     }
 
-    @DisplayName("[AuthController] 회원이 정확하지 않은 ID 와 Password 를 보낼 시, 400 로 응답한다.")
+    @DisplayName("[AuthController] 회원이 정확하지 않은 ID 와 Password 를 보낼 시, 400_001 로 응답한다.")
     @Test
     public void givenWrongIdOrPassword_whenRequestAuth_thenReturn401() throws Exception {
         //given
@@ -99,12 +99,16 @@ class AuthControllerTest {
             new GlobalException(Map.of(), ErrorTypeWithRequest.LOGIN_ID_WRONG));
 
         //when & then
-        mockMvc.perform(
+        ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders
                     .post("/v1/auth/login")
                     .contentType("application/json")
                     .content(asJsonString(request)))
-            .andExpect(MockMvcResultMatchers.status().isBadRequest());
+            .andExpect(MockMvcResultMatchers.status().isOk());
+
+        resultActions.andExpect(
+            MockMvcResultMatchers.jsonPath("$.status")
+                .value(ErrorTypeWithRequest.LOGIN_ID_WRONG.getCode()));
     }
 
     @DisplayName("[AuthController] 비회원이 자신이 작성한 게시글에 권한을 요구할 시, 토큰을 발급한다.")
@@ -132,7 +136,7 @@ class AuthControllerTest {
             MockMvcResultMatchers.jsonPath("$.data.token", Matchers.notNullValue()));
     }
 
-    @DisplayName("[AuthController] 비회원이 자신이 작성하지 않은 게시글에 권한을 요구할 시, 400로 응답한다.")
+    @DisplayName("[AuthController] 비회원이 자신이 작성하지 않은 게시글에 권한을 요구할 시, 400_020 코드로 응답한다.")
     @Test
     public void givenWrongNicknameOrPassword_whenRequestAuthForArticle_thenReturn401()
         throws Exception {
@@ -146,12 +150,16 @@ class AuthControllerTest {
             new GlobalException(Map.of(), ErrorTypeWithRequest.ARTICLE_MODIFY_NO_AUTH));
 
         //when & then
-        mockMvc.perform(
+        ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders
                     .post("/v1/auth/check/article")
                     .contentType("application/json")
                     .content(asJsonString(request)))
-            .andExpect(MockMvcResultMatchers.status().isBadRequest());
+            .andExpect(MockMvcResultMatchers.status().isOk());
+
+        resultActions.andExpect(
+            MockMvcResultMatchers.jsonPath("$.status")
+                .value(ErrorTypeWithRequest.ARTICLE_MODIFY_NO_AUTH.getCode()));
     }
 
     @DisplayName("[AuthController] 비회원이 자신이 작성한 댓글에 권한을 요구할 시, 토큰을 발급한다.")
@@ -179,7 +187,7 @@ class AuthControllerTest {
             MockMvcResultMatchers.jsonPath("$.data.token", Matchers.notNullValue()));
     }
 
-    @DisplayName("[AuthController] 비회원이 자신이 작성하지 않은 댓글에 권한을 요구할 시, 400로 응답한다.")
+    @DisplayName("[AuthController] 비회원이 자신이 작성하지 않은 댓글에 권한을 요구할 시, 400_024로 응답한다.")
     @Test
     public void givenWrongNicknameAndPassword_whenRequestAuthForComment_thenReturn401()
         throws Exception {
@@ -193,11 +201,15 @@ class AuthControllerTest {
             new GlobalException(Map.of(), ErrorTypeWithRequest.COMMENT_MODIFY_NO_AUTH));
 
         //when & then
-        mockMvc.perform(
+        ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders
                     .post("/v1/auth/check/comment")
                     .contentType("application/json")
                     .content(asJsonString(request)))
-            .andExpect(MockMvcResultMatchers.status().isBadRequest());
+            .andExpect(MockMvcResultMatchers.status().isOk());
+
+        resultActions.andExpect(
+            MockMvcResultMatchers.jsonPath("$.status")
+                .value(ErrorTypeWithRequest.COMMENT_MODIFY_NO_AUTH.getCode()));
     }
 }
